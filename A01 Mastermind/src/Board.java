@@ -66,21 +66,21 @@ public class Board extends JFrame {
 		gbl_panelResults.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panelResults.setLayout(gbl_panelResults);
 		
-		JButton btnResultsOne = new JButton("");
-		GridBagConstraints gbc_btnResultsOne = new GridBagConstraints();
-		gbc_btnResultsOne.gridx = 0;
-		gbc_btnResultsOne.gridy = 0;
-		panelResults.add(btnResultsOne, gbc_btnResultsOne);
+		JButton btnResults1 = new JButton("");
+		GridBagConstraints gbc_btnResults1 = new GridBagConstraints();
+		gbc_btnResults1.gridx = 0;
+		gbc_btnResults1.gridy = 0;
+		panelResults.add(btnResults1, gbc_btnResults1);
 		
-		JPanel panelWinningCode = new JPanel();
-		panelWinningCode.setMaximumSize(new Dimension(20767, 20767));
-		contentPane.add(panelWinningCode, BorderLayout.SOUTH);
-		GridBagLayout gbl_panelWinningCode = new GridBagLayout();
-		gbl_panelWinningCode.columnWidths = new int[]{634, 0, 0, 0};
-		gbl_panelWinningCode.rowHeights = new int[]{100, 0};
-		gbl_panelWinningCode.columnWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panelWinningCode.rowWeights = new double[]{1.0, Double.MIN_VALUE};
-		panelWinningCode.setLayout(gbl_panelWinningCode);
+		JPanel marbleColorPanel = new JPanel();
+		marbleColorPanel.setMaximumSize(new Dimension(20767, 20767));
+		contentPane.add(marbleColorPanel, BorderLayout.SOUTH);
+		GridBagLayout gbl_marbleColorPanel = new GridBagLayout();
+		gbl_marbleColorPanel.columnWidths = new int[]{634, 0, 0, 0};
+		gbl_marbleColorPanel.rowHeights = new int[]{100, 0};
+		gbl_marbleColorPanel.columnWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_marbleColorPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		marbleColorPanel.setLayout(gbl_marbleColorPanel);
 		
 		JPanel panel = new JPanel();
 		panel.setMaximumSize(new Dimension(22767, 22767));
@@ -89,7 +89,7 @@ public class Board extends JFrame {
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 0;
-		panelWinningCode.add(panel, gbc_panel);
+		marbleColorPanel.add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 94, 94, 0, 0, 0, 0};
 		gbl_panel.rowHeights = new int[]{0, 0};
@@ -97,6 +97,39 @@ public class Board extends JFrame {
 		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
+		createPlayerMarbles(panel);
+		
+		submitAndMenuBtns(marbleColorPanel);
+		
+		JPanel panelGame = new JPanel();
+		panelGame.setBorder(new LineBorder(new Color(0, 0, 0)));
+		contentPane.add(panelGame, BorderLayout.CENTER);
+		GridBagLayout gbl_panelGame = new GridBagLayout();
+		gbl_panelGame.columnWidths = new int[]{125, 125, 125, 125, 0};
+		gbl_panelGame.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panelGame.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelGame.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panelGame.setLayout(gbl_panelGame);
+		
+		createMarbleSlots(panelGame);
+	}
+
+	private void submitAndMenuBtns(JPanel panelWinningCode) {
+		JButton submitBtn = new JButton("SUBMIT");
+		GridBagConstraints gbc_submitBtn = new GridBagConstraints();
+		gbc_submitBtn.insets = new Insets(0, 0, 0, 5);
+		gbc_submitBtn.gridx = 1;
+		gbc_submitBtn.gridy = 0;
+		panelWinningCode.add(submitBtn, gbc_submitBtn);
+		
+		JButton btnMenu = new JButton("Menu");
+		GridBagConstraints gbc_btnMenu = new GridBagConstraints();
+		gbc_btnMenu.gridx = 2;
+		gbc_btnMenu.gridy = 0;
+		panelWinningCode.add(btnMenu, gbc_btnMenu);
+	}
+
+	private void createPlayerMarbles(JPanel panel) {
 		JButton redMarbleBtn = new JButton("");
 		redMarbleBtn.setIcon(new ImageIcon(Board.class.getResource("/marbleIcons/RedMarble.JPG")));
 		GridBagConstraints gbc_redMarbleBtn = new GridBagConstraints();
@@ -143,30 +176,9 @@ public class Board extends JFrame {
 		gbc_whiteMarbleBtn.gridx = 5;
 		gbc_whiteMarbleBtn.gridy = 0;
 		panel.add(whiteMarbleBtn, gbc_whiteMarbleBtn);
-		
-		JButton submitBtn = new JButton("SUBMIT");
-		GridBagConstraints gbc_submitBtn = new GridBagConstraints();
-		gbc_submitBtn.insets = new Insets(0, 0, 0, 5);
-		gbc_submitBtn.gridx = 1;
-		gbc_submitBtn.gridy = 0;
-		panelWinningCode.add(submitBtn, gbc_submitBtn);
-		
-		JButton btnMenu = new JButton("Menu");
-		GridBagConstraints gbc_btnMenu = new GridBagConstraints();
-		gbc_btnMenu.gridx = 2;
-		gbc_btnMenu.gridy = 0;
-		panelWinningCode.add(btnMenu, gbc_btnMenu);
-		
-		JPanel panelGame = new JPanel();
-		panelGame.setBorder(new LineBorder(new Color(0, 0, 0)));
-		contentPane.add(panelGame, BorderLayout.CENTER);
-		GridBagLayout gbl_panelGame = new GridBagLayout();
-		gbl_panelGame.columnWidths = new int[]{125, 125, 125, 125, 0};
-		gbl_panelGame.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panelGame.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panelGame.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panelGame.setLayout(gbl_panelGame);
-		
+	}
+
+	private void createMarbleSlots(JPanel panelGame) {
 		JButton btn1Row1 = new JButton("");
 		btn1Row1.setIcon(new ImageIcon(Board.class.getResource("/marbleIcons/BlankMarble.jpg")));
 		GridBagConstraints gbc_btn1Row1 = new GridBagConstraints();

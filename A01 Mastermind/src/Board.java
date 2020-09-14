@@ -22,7 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Board extends JFrame {
-
+	
 	private String colorSelected = "";
 	private JPanel contentPane;
 
@@ -282,7 +282,7 @@ public class Board extends JFrame {
 		panel.add(whiteMarbleBtn, gbc_whiteMarbleBtn);
 	}
 	/**
-	 * This method is used for the blank marble slots at the beginning of the game
+	 * This method is used for the blank marble slots at the beginning of the game and changing them to the colored marbles
 	 * @param panelGame
 	 */
 	private void createMarbleSlots(JPanel panelGame) {

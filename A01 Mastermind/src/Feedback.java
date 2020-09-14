@@ -10,5 +10,5 @@ package mastermind;
  *
  */
 public enum Feedback {
-	WHITE, BLACK;
+	BLACK, WHITE;
 }

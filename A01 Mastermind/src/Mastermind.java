@@ -1,6 +1,7 @@
 package mastermind;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -18,10 +19,10 @@ public class Mastermind {
 	/**
 	 * playGame() method resets the player's game prior to starting a new game,
 	 * then runs through each player's chance to try and break the code, 
-	 * increments when the code is wrong, and triggers the win when the code
-	 * is broken.
+	 * increments when the code is wrong, gives the player feedback, and triggers 
+	 * the win if/when the code is broken.
 	 * 
-	 * @param player Instantiated player
+	 * @param player      Instantiated player
 	 */
 	public static void playGame(Player player) {
 		resetGame(player);
@@ -38,11 +39,9 @@ public class Mastermind {
 				player.incrementWins();
 				System.out.println(player.getWins());
 			} else {
-				System.out.println("not quite - Give feedback here");//TODO Give Feedback
+				giveFeedback(playersChoices);
+				player.incrementCurrentTurn();
 			}
-			
-			player.incrementCurrentTurn();
-
 		}
 	}
 	
@@ -95,5 +94,21 @@ public class Mastermind {
 	private static void resetGame(Player player) {
 		player.resetPlayerForNewGame();
 		gameOver = false;
+	}
+	
+	private static ArrayList<Feedback> giveFeedback(ArrayList<Codes> playerCodes) {
+		ArrayList<Feedback> feedback = new ArrayList<>();
+		for(Codes el : playerCodes) {
+			if(el.equals(codeToBreak.get(playerCodes.indexOf(el)))) {
+				feedback.add(Feedback.BLACK);
+			} else if(codeToBreak.contains(el)) {
+				feedback.add(Feedback.WHITE);
+			}
+		}
+
+		Collections.sort(feedback);
+		System.out.println("Feedback: " + feedback);
+
+		return feedback;
 	}
 }

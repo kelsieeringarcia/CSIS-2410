@@ -1,26 +1,25 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+package mastermind;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.GridBagLayout;
-import javax.swing.JButton;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.ImageIcon;
-import javax.swing.JRadioButton;
-import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class Board extends JFrame {
 	
 	private String colorSelected = "";

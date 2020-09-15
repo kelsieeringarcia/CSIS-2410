@@ -73,6 +73,7 @@ public class Board extends JFrame {
 		panelResults.setLayout(gbl_panelResults);
 		
 		JButton btnResults1 = new JButton("");
+		btnResults1.setIcon(null);
 		GridBagConstraints gbc_btnResults1 = new GridBagConstraints();
 		gbc_btnResults1.insets = new Insets(0, 0, 5, 0);
 		gbc_btnResults1.gridx = 0;
@@ -80,6 +81,7 @@ public class Board extends JFrame {
 		panelResults.add(btnResults1, gbc_btnResults1);
 		
 		JButton btnResults2 = new JButton("");
+		btnResults2.setIcon(null);
 		GridBagConstraints gbc_btnResults2 = new GridBagConstraints();
 		gbc_btnResults2.insets = new Insets(0, 0, 5, 0);
 		gbc_btnResults2.gridx = 0;
@@ -87,6 +89,7 @@ public class Board extends JFrame {
 		panelResults.add(btnResults2, gbc_btnResults2);
 		
 		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.setIcon(null);
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton_1.gridx = 0;
@@ -94,6 +97,7 @@ public class Board extends JFrame {
 		panelResults.add(btnNewButton_1, gbc_btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("");
+		btnNewButton_2.setIcon(null);
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton_2.gridx = 0;
@@ -101,6 +105,7 @@ public class Board extends JFrame {
 		panelResults.add(btnNewButton_2, gbc_btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("");
+		btnNewButton_3.setIcon(null);
 		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
 		gbc_btnNewButton_3.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton_3.gridx = 0;
@@ -108,6 +113,7 @@ public class Board extends JFrame {
 		panelResults.add(btnNewButton_3, gbc_btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("");
+		btnNewButton_4.setIcon(null);
 		GridBagConstraints gbc_btnNewButton_4 = new GridBagConstraints();
 		gbc_btnNewButton_4.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton_4.gridx = 0;
@@ -115,6 +121,7 @@ public class Board extends JFrame {
 		panelResults.add(btnNewButton_4, gbc_btnNewButton_4);
 		
 		JButton btnNewButton_5 = new JButton("");
+		btnNewButton_5.setIcon(null);
 		GridBagConstraints gbc_btnNewButton_5 = new GridBagConstraints();
 		gbc_btnNewButton_5.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton_5.gridx = 0;
@@ -122,6 +129,7 @@ public class Board extends JFrame {
 		panelResults.add(btnNewButton_5, gbc_btnNewButton_5);
 		
 		JButton btnNewButton_6 = new JButton("");
+		btnNewButton_6.setIcon(null);
 		GridBagConstraints gbc_btnNewButton_6 = new GridBagConstraints();
 		gbc_btnNewButton_6.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton_6.gridx = 0;
@@ -129,6 +137,7 @@ public class Board extends JFrame {
 		panelResults.add(btnNewButton_6, gbc_btnNewButton_6);
 		
 		JButton btnNewButton_7 = new JButton("");
+		btnNewButton_7.setIcon(null);
 		GridBagConstraints gbc_btnNewButton_7 = new GridBagConstraints();
 		gbc_btnNewButton_7.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton_7.gridx = 0;
@@ -136,6 +145,7 @@ public class Board extends JFrame {
 		panelResults.add(btnNewButton_7, gbc_btnNewButton_7);
 		
 		JButton btnNewButton_8 = new JButton("");
+		btnNewButton_8.setIcon(null);
 		GridBagConstraints gbc_btnNewButton_8 = new GridBagConstraints();
 		gbc_btnNewButton_8.gridx = 0;
 		gbc_btnNewButton_8.gridy = 9;
@@ -195,7 +205,7 @@ public class Board extends JFrame {
 		JMenuItem restartGameBtn = new JMenuItem("Restart Game");
 		btnMenu.add(restartGameBtn);
 		
-		JMenuItem scoreBtn = new JMenuItem("Score:");
+		JMenuItem scoreBtn = new JMenuItem("Score: ");
 		btnMenu.add(scoreBtn);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -52,22 +52,7 @@ public class Board extends JFrame {
 	public Board() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 1500);
-		// Menu bar
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		
-		JMenu btnMenu = new JMenu("Menu");
-		menuBar.add(btnMenu);
-		
-		JMenuItem restartGameBtn = new JMenuItem("Restart Game");
-		btnMenu.add(restartGameBtn);
-		
-		JMenuItem scoreBtn = new JMenuItem("Score:");
-		btnMenu.add(scoreBtn);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		menuBarItems();
 		
 		JPanel panelTitle = new JPanel();
 		panelTitle.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -183,7 +168,7 @@ public class Board extends JFrame {
 		
 		createPlayerMarbles(panel);
 		
-		submitAndMenuBtns(marbleColorPanel);
+		submitBtn(marbleColorPanel);
 		
 		JPanel panelGame = new JPanel();
 		panelGame.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -197,11 +182,31 @@ public class Board extends JFrame {
 		
 		createMarbleSlots(panelGame);
 	}
+
+
+	private void menuBarItems() {
+		// Menu bar
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu btnMenu = new JMenu("Menu");
+		menuBar.add(btnMenu);
+		
+		JMenuItem restartGameBtn = new JMenuItem("Restart Game");
+		btnMenu.add(restartGameBtn);
+		
+		JMenuItem scoreBtn = new JMenuItem("Score:");
+		btnMenu.add(scoreBtn);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+	}
 	/**
 	 * This is for the game buttons for submitting the color code or go to menu
 	 * @param panelWinningCode
 	 */
-	private void submitAndMenuBtns(JPanel panelWinningCode) {
+	private void submitBtn(JPanel panelWinningCode) {
 		JButton submitBtn = new JButton("SUBMIT");
 		GridBagConstraints gbc_submitBtn = new GridBagConstraints();
 		gbc_submitBtn.insets = new Insets(0, 0, 0, 5);

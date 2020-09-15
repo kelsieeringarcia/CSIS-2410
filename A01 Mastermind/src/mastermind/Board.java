@@ -18,12 +18,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 @SuppressWarnings("serial")
 public class Board extends JFrame {
 	
 	private String colorSelected = "";
 	private JPanel contentPane;
+
 
 	/**
 	 * Launch the application.
@@ -40,6 +44,7 @@ public class Board extends JFrame {
 			}
 		});
 	}
+	
 
 	/**
 	 * Create the frame.
@@ -47,6 +52,18 @@ public class Board extends JFrame {
 	public Board() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 1500);
+		// Menu bar
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu btnMenu = new JMenu("Menu");
+		menuBar.add(btnMenu);
+		
+		JMenuItem restartGameBtn = new JMenuItem("Restart Game");
+		btnMenu.add(restartGameBtn);
+		
+		JMenuItem scoreBtn = new JMenuItem("Score:");
+		btnMenu.add(scoreBtn);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -191,12 +208,6 @@ public class Board extends JFrame {
 		gbc_submitBtn.gridx = 1;
 		gbc_submitBtn.gridy = 0;
 		panelWinningCode.add(submitBtn, gbc_submitBtn);
-		
-		JButton btnMenu = new JButton("Menu");
-		GridBagConstraints gbc_btnMenu = new GridBagConstraints();
-		gbc_btnMenu.gridx = 2;
-		gbc_btnMenu.gridy = 0;
-		panelWinningCode.add(btnMenu, gbc_btnMenu);
 	}
 	/**
 	 * This method is for the color marbles at the bottom to choose which color to play

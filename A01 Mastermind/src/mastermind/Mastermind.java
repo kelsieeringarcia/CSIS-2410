@@ -35,7 +35,7 @@ public class Mastermind {
 			
 			if(playersChoices.equals(codeToBreak)) {
 				System.out.println("win");
-				gameOver = !gameOver;
+				gameOver = true;
 				player.incrementWins();
 				System.out.println(player.getWins());
 			} else {

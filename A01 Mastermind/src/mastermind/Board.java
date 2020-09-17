@@ -56,13 +56,7 @@ public class Board extends JFrame {
 		resetMarbleGridArray();
 		
 
-		JPanel panelTitle = new JPanel();
-		panelTitle.setBorder(new LineBorder(new Color(0, 0, 0)));
-		contentPane.add(panelTitle, BorderLayout.NORTH);
-
-		JLabel titleLabel = new JLabel("Mastermind");
-		titleLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 27));
-		panelTitle.add(titleLabel);
+		titleOfGame();
 
 		JPanel panelResults = new JPanel();
 		panelResults.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -117,6 +111,16 @@ public class Board extends JFrame {
 		panelGame.setLayout(gbl_panelGame);
 
 		createMarbleSlots(panelGame);
+	}
+
+	private void titleOfGame() {
+		JPanel panelTitle = new JPanel();
+		panelTitle.setBorder(new LineBorder(new Color(0, 0, 0)));
+		contentPane.add(panelTitle, BorderLayout.NORTH);
+
+		JLabel titleLabel = new JLabel("Mastermind");
+		titleLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 27));
+		panelTitle.add(titleLabel);
 	}
 
 	private void feedbackIcons(JPanel panelResults) {
@@ -234,12 +238,25 @@ public class Board extends JFrame {
 		submitBtn.setEnabled(true);
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//TODO Once the color marbles 
 				if (guiRow < 10) {
 					//This makes sure you can not longer change the marble colors for that row once submitted
-					for (int i = 0; i < 4; i++) {
-						marbleGrid[guiRow][i] = false;
-					}
+					//for (int i = 0; i < 4; i++) {
+					//	marbleGrid[guiRow][i] = false;
+					//}
+					enableNextRow(guiRow);
+					disableCurrentRow(guiRow);
 					guiRow++;
+					//for testing purposes TODO
+					for(int i = 0; i < 10; i++) {
+						
+						for(int j = 0; j < 4; j++) {
+							System.out.println(marbleGrid[i][j]);
+							System.out.println(i + " - " + j);
+							System.out.println();
+						}
+					}
+					
 				}
 			}
 		});
@@ -926,15 +943,32 @@ public class Board extends JFrame {
 		//TODO not working yet
 		if(Mastermind.gameOver == true) {
 			btn.setIcon(new ImageIcon(Board.class.getResource("/marbleIcons/BlankMarble.jpg")));
-			for(int i = 0; i < 10; i++) {
-				
-				for(int j = 0; j < 4; j++) {
-					marbleGrid[i][j] = true;
-				}
-			}
+			resetMarbleGridArray();
 			//for testing TODO
 			System.out.println(Mastermind.gameOver);
 		}
+	}
+	/**
+	 * This disables the current row once the submit button is hit
+	 * @param guiRow
+	 */
+	private void disableCurrentRow(int guiRow) {
+		for(int i = 0; i < 4; i++) {
+			marbleGrid[guiRow][i] = false;
+		}
+		
+	}
+	/**
+	 * This enables the next row to true so the marble slots are changeable
+	 * @param guiRow
+	 */
+	private void enableNextRow(int guiRow) {
+		
+			int nextGuiRow = guiRow + 1;
+				for(int i = 0; i < 4; i++) {
+					marbleGrid[nextGuiRow][i] = true;
+				}
+		
 	}
 	
 	/**
@@ -945,17 +979,12 @@ public class Board extends JFrame {
 		for(int i = 0; i < 10; i++) {
 			
 			for(int j = 0; j < 4; j++) {
-				marbleGrid[i][j] = true;
+				marbleGrid[i][j] = false;
 			}
 		}
-		//for testing purposes TODO
-		for(int i = 0; i < 10; i++) {
-			
-			for(int j = 0; j < 4; j++) {
-				System.out.println(marbleGrid[i][j]);
-				System.out.println(i + " - " + j);
-				System.out.println();
-			}
+		//Sets the first row to true	
+		for(int j = 0; j < 4; j++) {
+			marbleGrid[0][j] = true;
 		}
 	}
 }

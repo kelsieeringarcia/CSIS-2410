@@ -48,52 +48,22 @@ public class Player {
 			
 			switch(userInput) {
 				case "W":
-					if(!codes.contains(Codes.WHITE)) {
-						codes.add(Codes.WHITE);
-					} else {
-						System.out.println("Cant have dups");
-						count--;
-					}
+					codes.add(Codes.WHITE);
 					break;
 				case "B":
-					if(!codes.contains(Codes.BLUE)) {
-						codes.add(Codes.BLUE);
-					} else {
-						System.out.println("Cant have dups");
-						count--;
-					}
+					codes.add(Codes.BLUE);
 					break;
 				case "G":
-					if(!codes.contains(Codes.GREEN)) {
-						codes.add(Codes.GREEN);
-					} else {
-						System.out.println("Cant have dups");
-						count--;
-					}
+					codes.add(Codes.GREEN);
 					break;
 				case "R":
-					if(!codes.contains(Codes.RED)) {
-						codes.add(Codes.RED);
-					} else {
-						System.out.println("Cant have dups");
-						count--;
-					}
+					codes.add(Codes.RED);
 					break;
 				case "Y":
-					if(!codes.contains(Codes.YELLOW)) {
-						codes.add(Codes.YELLOW);
-					} else {
-						System.out.println("Cant have dups");
-						count--;
-					}
+					codes.add(Codes.YELLOW);
 					break;
 				case "BLK":
-					if(!codes.contains(Codes.BLACK)) {
-						codes.add(Codes.BLACK);
-					} else {
-						System.out.println("Cant have dups");
-						count--;
-					}
+					codes.add(Codes.BLACK);
 					break;
 				default:
 					System.out.println("Not a valid response");

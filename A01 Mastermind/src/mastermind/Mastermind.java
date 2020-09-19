@@ -35,7 +35,7 @@ public class Mastermind {
 			
 			if(playersChoices.equals(codeToBreak)) {
 				System.out.println("win");
-				gameOver = true;
+				gameOver = !gameOver;
 				player.incrementWins();
 				System.out.println(player.getWins());
 			} else {
@@ -47,18 +47,11 @@ public class Mastermind {
 	
 	private static ArrayList<Codes> createCodeToBreak() {
 		Random rand = new Random();
-		ArrayList<Integer> used = new ArrayList<>();
 		ArrayList<Codes> randomCode = new ArrayList<>();
 		int count = 1;
 		
 		while(count <= 4) {
 			int randPick = rand.nextInt(6) + 1;
-			
-			while(used.contains(randPick)) {
-				randPick = rand.nextInt(6) + 1;
-			}
-			
-			used.add(randPick);
 			
 			switch(randPick) {
 				case 1:
@@ -98,10 +91,10 @@ public class Mastermind {
 	
 	private static ArrayList<Feedback> giveFeedback(ArrayList<Codes> playerCodes) {
 		ArrayList<Feedback> feedback = new ArrayList<>();
-		for(Codes el : playerCodes) {
-			if(el.equals(codeToBreak.get(playerCodes.indexOf(el)))) {
+		for(int i = 0; i < playerCodes.size(); i++) {
+			if(playerCodes.get(i).equals(codeToBreak.get(i))) {
 				feedback.add(Feedback.BLACK);
-			} else if(codeToBreak.contains(el)) {
+			} else if(codeToBreak.contains(playerCodes.get(i))) {
 				feedback.add(Feedback.WHITE);
 			}
 		}

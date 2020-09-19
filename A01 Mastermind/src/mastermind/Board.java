@@ -10,6 +10,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,10 +27,12 @@ import javax.swing.JMenuItem;
 public class Board extends JFrame {
 
 	private String colorSelected = "";
+	private String feedBack = "";
 	private JPanel contentPane;
 	private boolean[][] marbleGrid = new boolean[10][4];
 	private int guiRow = 0;
 	private int guiColumn = 0;
+	private ArrayList<Codes> playerCodes = new ArrayList<>();
 	/**
 	 * Launch the application.
 	 */
@@ -117,10 +120,16 @@ public class Board extends JFrame {
 		JPanel panelTitle = new JPanel();
 		panelTitle.setBorder(new LineBorder(new Color(0, 0, 0)));
 		contentPane.add(panelTitle, BorderLayout.NORTH);
-
+		//TODO KELSIE Change to win or lose
 		JLabel titleLabel = new JLabel("Mastermind");
 		titleLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 27));
 		panelTitle.add(titleLabel);
+	}
+	
+	private void feedbackIconResults(JButton btn) {
+		//TODO  CHAD Make feedback method in mastermind class and make sure it returns the names of the /pegIcons/'feedBack'.PNG 
+		btn.setIcon(new ImageIcon(Board.class.getResource("/pegIcons/" + feedBack)));
+		System.out.println("Feedback: " + feedBack);
 	}
 
 	private void feedbackIcons(JPanel panelResults) {
@@ -215,11 +224,12 @@ public class Board extends JFrame {
 		JMenuItem restartGameBtn = new JMenuItem("Restart Game");
 		restartGameBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//TODO KELSIE Finish
 				resetMarbleSlots(null);
 			}
 		});
 		btnMenu.add(restartGameBtn);
-
+		//TODO CHAD
 		JMenuItem scoreBtn = new JMenuItem("Score: ");
 		btnMenu.add(scoreBtn);
 		contentPane = new JPanel();
@@ -238,24 +248,22 @@ public class Board extends JFrame {
 		submitBtn.setEnabled(true);
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO Once the color marbles 
+				//TODO Breaks at row 10 fix KELSIE
 				if (guiRow < 10) {
-					//This makes sure you can not longer change the marble colors for that row once submitted
-					//for (int i = 0; i < 4; i++) {
-					//	marbleGrid[guiRow][i] = false;
-					//}
 					enableNextRow(guiRow);
 					disableCurrentRow(guiRow);
 					guiRow++;
+					Player.setPlayerPicks(playerCodes);
+					playerCodes.removeAll(playerCodes);
 					//for testing purposes TODO
-					for(int i = 0; i < 10; i++) {
+					/*for(int i = 0; i < 10; i++) {
 						
 						for(int j = 0; j < 4; j++) {
 							System.out.println(marbleGrid[i][j]);
 							System.out.println(i + " - " + j);
 							System.out.println();
 						}
-					}
+					}*/
 					
 				}
 			}
@@ -277,7 +285,7 @@ public class Board extends JFrame {
 		JButton redMarbleBtn = new JButton("");
 		redMarbleBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				colorSelected = "RedMarble.jpg";
+				colorSelected = "RedMarble.JPG";
 			}
 		});
 		redMarbleBtn.setIcon(new ImageIcon(Board.class.getResource("/marbleIcons/RedMarble.JPG")));
@@ -290,7 +298,7 @@ public class Board extends JFrame {
 		JButton yellowMarbleBtn = new JButton("");
 		yellowMarbleBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				colorSelected = "YellowMarble.jpg";
+				colorSelected = "YellowMarble.JPG";
 			}
 		});
 		yellowMarbleBtn.setIcon(new ImageIcon(Board.class.getResource("/marbleIcons/YellowMarble.JPG")));
@@ -303,7 +311,7 @@ public class Board extends JFrame {
 		JButton blueMarbleBtn = new JButton("");
 		blueMarbleBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				colorSelected = "BlueMarble.jpg";
+				colorSelected = "BlueMarble.JPG";
 			}
 		});
 		blueMarbleBtn.setIcon(new ImageIcon(Board.class.getResource("/marbleIcons/BlueMarble.JPG")));
@@ -316,7 +324,7 @@ public class Board extends JFrame {
 		JButton greenMarbleBtn = new JButton("");
 		greenMarbleBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				colorSelected = "GreenMarble.jpg";
+				colorSelected = "GreenMarble.JPG";
 			}
 		});
 		greenMarbleBtn.setIcon(new ImageIcon(Board.class.getResource("/marbleIcons/GreenMarble.JPG")));
@@ -329,7 +337,7 @@ public class Board extends JFrame {
 		JButton blackMarbleBtn = new JButton("");
 		blackMarbleBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				colorSelected = "BlackMarble.jpg";
+				colorSelected = "BlackMarble.JPG";
 			}
 		});
 		blackMarbleBtn.setIcon(new ImageIcon(Board.class.getResource("/marbleIcons/BlackMarble.JPG")));
@@ -342,7 +350,7 @@ public class Board extends JFrame {
 		JButton whiteMarbleBtn = new JButton("");
 		whiteMarbleBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				colorSelected = "WhiteMarble.jpg";
+				colorSelected = "WhiteMarble.JPG";
 			}
 		});
 		whiteMarbleBtn.setIcon(new ImageIcon(Board.class.getResource("/marbleIcons/WhiteMarble.JPG")));
@@ -931,6 +939,28 @@ public class Board extends JFrame {
 		boolean isChangable = marbleGrid[y][x];
 		if(colorSelected != "" && isChangable != false){
 			btn.setIcon(new ImageIcon(Board.class.getResource("/marbleIcons/" + colorSelected)));
+            switch(colorSelected) {
+            case "BlackMarble.JPG":
+                playerCodes.add(Codes.BLACK);
+                break;
+            case "BlueMarble.JPG":
+                playerCodes.add(Codes.BLUE);
+                break;
+            case "GreenMarble.JPG":
+                playerCodes.add(Codes.GREEN);
+                break;
+            case "RedMarble.JPG":
+                playerCodes.add(Codes.RED);
+                break;
+            case "WhiteMarble.JPG":
+                playerCodes.add(Codes.WHITE);
+                break;
+            case "YellowMarble.JPG":
+                playerCodes.add(Codes.YELLOW);
+                break;
+        }
+            System.out.println(colorSelected);
+            System.out.println(playerCodes);
 			colorSelected = "";
 			
 		}
@@ -958,6 +988,7 @@ public class Board extends JFrame {
 		}
 		
 	}
+	
 	/**
 	 * This enables the next row to true so the marble slots are changeable
 	 * @param guiRow

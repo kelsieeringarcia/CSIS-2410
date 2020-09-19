@@ -13,10 +13,10 @@ import java.util.Scanner;
 public class Player {
 	private String name;
 	private int currentTurn;
-	private int MAXTURNS = 2;
+	private int MAXTURNS = 10;
 	private int wins = 0;
 	private int loses = 0;
-	
+	private static ArrayList<Codes> playerPicks = new ArrayList<Codes>();
 	/**
 	 * Player class instantiates a new Player, and sets the name of Player. It is needed
 	 * prior to being able to play the Mastermind game.
@@ -78,6 +78,14 @@ public class Player {
 		System.out.println("Users Choices: " + codes.toString());
 		
 		return codes;
+	}
+	
+	public static void setPlayerPicks(ArrayList<Codes> playerPics) {
+		playerPicks = playerPics;
+	}
+	
+	public static ArrayList<Codes> getPlayerPicks() {
+		return playerPicks;
 	}
 	
 	/**

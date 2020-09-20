@@ -1,5 +1,8 @@
 package mastermind;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * @author czuniga10
  *
@@ -13,13 +16,9 @@ public class MastermindApp {
 		Player player1 = new Player("Fred");
 		int i = 0;
 		
-		while(i < 4) {
-			Mastermind.playGame(player1);
-			i++;
-			System.out.printf("\n\n\n New Game!! \n\nWins: %d  Loses: %d\n\n",
-					player1.getWins(), player1.getLoses());
-		}
-		
+		ArrayList<Feedback> feedback = new ArrayList<Feedback>();
+		System.out.println(feedback);
+		System.out.println(Mastermind.convertFeedback(feedback));
 	}
 
 }

@@ -10,5 +10,5 @@ package mastermind;
  *
  */
 public enum Codes {
-	YELLOW, BLUE, GREEN, WHITE, RED, BLACK;
+	YELLOW, BLUE, GREEN, WHITE, RED, BLACK, NONE1, NONE2;
 }

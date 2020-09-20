@@ -17,35 +17,28 @@ public class Mastermind {
 	public static boolean gameOver;
 	
 	/**
-	 * playGame() method resets the player's game prior to starting a new game,
-	 * then runs through each player's chance to try and break the code, 
-	 * increments when the code is wrong, gives the player feedback, and triggers 
-	 * the win if/when the code is broken.
+	 * Given the players choices from the GUI, the checkForCodeBreak method checks
+	 * to see if the player has won, or it will send a string back with the correct
+	 * Feedback in order to produce the Feedback PNG image.
 	 * 
-	 * @param player      Instantiated player
+	 * @param playerCodes
+	 * @return		String 
 	 */
-	public static void playGame(Player player) {
-		resetGame(player);
-		setCodeToBreak(createCodeToBreak());
-		
-		while(!gameOver) {
-			ArrayList<Codes> playersChoices = new ArrayList<>();
-			
-			playersChoices = player.pickCode();
-			
-			if(playersChoices.equals(codeToBreak)) {
-				System.out.println("win");
-				gameOver = !gameOver;
-				player.incrementWins();
-				System.out.println(player.getWins());
-			} else {
-				giveFeedback(playersChoices);
-				player.incrementCurrentTurn();
-			}
+	public static String checkForCodeBreak(ArrayList<Codes> playerCodes) {
+		String feedback = "";
+		if(playerCodes.equals(codeToBreak)) {
+			System.out.println("win");
+			Player.incrementWins();
+			System.out.println(Player.getWins());
+			feedback = "Win";
+		} else {
+			feedback = convertFeedback(giveFeedback(playerCodes));
 		}
+		
+		return feedback;
 	}
 	
-	private static ArrayList<Codes> createCodeToBreak() {
+	public static void createCodeToBreak() {
 		Random rand = new Random();
 		ArrayList<Codes> randomCode = new ArrayList<>();
 		int count = 1;
@@ -77,31 +70,66 @@ public class Mastermind {
 			count++;
 		}
 		System.out.println(randomCode);
-		return randomCode;
+		
+		setCodeToBreak(randomCode);
 	}
 	
 	private static void setCodeToBreak(ArrayList<Codes> codes) {
 		codeToBreak = codes;
 	}
 	
-	private static void resetGame(Player player) {
-		player.resetPlayerForNewGame();
-		gameOver = false;
-	}
 	//TODO CHAD line 129 board
 	private static ArrayList<Feedback> giveFeedback(ArrayList<Codes> playerCodes) {
+		ArrayList<Codes> copyCodeToBreak = getCodeToBreak();
 		ArrayList<Feedback> feedback = new ArrayList<>();
+		System.out.println("code to break: "+copyCodeToBreak);
+		System.out.println("player picks: " +playerCodes);
 		for(int i = 0; i < playerCodes.size(); i++) {
 			if(playerCodes.get(i).equals(codeToBreak.get(i))) {
 				feedback.add(Feedback.BLACK);
-			} else if(codeToBreak.contains(playerCodes.get(i))) {
+				copyCodeToBreak.set(i, Codes.NONE1);
+				playerCodes.set(i, Codes.NONE2);
+			}
+		}
+		
+		for(int i = 0; i < playerCodes.size(); i++) {
+			if(copyCodeToBreak.contains(playerCodes.get(i))) {
 				feedback.add(Feedback.WHITE);
 			}
 		}
-
+			
+		
 		Collections.sort(feedback);
 		System.out.println("Feedback: " + feedback);
 
 		return feedback;
+	}
+	
+	public static String convertFeedback(ArrayList<Feedback> feedback) {
+		StringBuilder sb = new StringBuilder();
+		if(feedback.isEmpty()) {
+			sb.append("EEEE");
+		}
+		
+		for(int i = 0; i < feedback.size(); i++) {
+			if(feedback.get(i).equals(Feedback.BLACK)) {
+				sb.append("B");
+			} else {
+				sb.append("W");
+			}
+		}
+		
+		while(sb.length() < 4) {
+			sb.append("E");
+		}
+		
+		System.out.println(sb.toString());
+		return sb.toString();
+	}
+	
+	private static ArrayList<Codes> getCodeToBreak() {
+		ArrayList<Codes> code = new ArrayList<Codes>();
+		code.addAll(codeToBreak);
+		return code;
 	}
 }

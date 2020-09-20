@@ -27,12 +27,13 @@ import javax.swing.JMenuItem;
 public class Board extends JFrame {
 
 	private String colorSelected = "";
-	private String feedBack = "";
+	private String feedback = "";
 	private JPanel contentPane;
 	private boolean[][] marbleGrid = new boolean[10][4];
 	private int guiRow = 0;
 	private int guiColumn = 0;
 	private ArrayList<Codes> playerCodes = new ArrayList<>();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -53,6 +54,8 @@ public class Board extends JFrame {
 	 * Create the frame.
 	 */
 	public Board() {
+		Mastermind.createCodeToBreak();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 1500);
 		menuBarItems();
@@ -127,9 +130,10 @@ public class Board extends JFrame {
 	}
 	
 	private void feedbackIconResults(JButton btn) {
+		
 		//TODO  CHAD Make feedback method in mastermind class and make sure it returns the names of the /pegIcons/'feedBack'.PNG 
-		btn.setIcon(new ImageIcon(Board.class.getResource("/pegIcons/" + feedBack)));
-		System.out.println("Feedback: " + feedBack);
+		btn.setIcon(new ImageIcon(Board.class.getResource("/pegIcons/" + feedback)));
+		System.out.println("Feedback: " + feedback);
 	}
 
 	private void feedbackIcons(JPanel panelResults) {
@@ -230,7 +234,7 @@ public class Board extends JFrame {
 		});
 		btnMenu.add(restartGameBtn);
 		//TODO CHAD
-		JMenuItem scoreBtn = new JMenuItem("Score: ");
+		JMenuItem scoreBtn = new JMenuItem("Score: "+Player.getWins()+" wins - "+Player.getLoses()+" loses");
 		btnMenu.add(scoreBtn);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -253,8 +257,19 @@ public class Board extends JFrame {
 					enableNextRow(guiRow);
 					disableCurrentRow(guiRow);
 					guiRow++;
-					Player.setPlayerPicks(playerCodes);
+					
+					
+					feedback = Mastermind.checkForCodeBreak(playerCodes);
+					if(feedback == "Win") {
+						//change Title to say win.
+					}
+					
+					//feedbackIconResults();
+					
+					
+					
 					playerCodes.removeAll(playerCodes);
+					feedback = "";
 					//for testing purposes TODO
 					/*for(int i = 0; i < 10; i++) {
 						

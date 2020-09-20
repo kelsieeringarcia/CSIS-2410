@@ -25,7 +25,7 @@ import javax.swing.JMenuItem;
 
 @SuppressWarnings("serial")
 public class Board extends JFrame {
-
+	private JLabel titleLabel;
 	private String colorSelected = "";
 	private String feedback = "";
 	private JPanel contentPane;
@@ -124,7 +124,7 @@ public class Board extends JFrame {
 		panelTitle.setBorder(new LineBorder(new Color(0, 0, 0)));
 		contentPane.add(panelTitle, BorderLayout.NORTH);
 		//TODO KELSIE Change to win or lose
-		JLabel titleLabel = new JLabel("Mastermind");
+		titleLabel = new JLabel("Mastermind");
 		titleLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 27));
 		panelTitle.add(titleLabel);
 	}
@@ -261,7 +261,7 @@ public class Board extends JFrame {
 					
 					feedback = Mastermind.checkForCodeBreak(playerCodes);
 					if(feedback == "Win") {
-						//change Title to say win.
+						titleLabel.setText("WINNER!");
 					}
 					
 					//feedbackIconResults();
@@ -269,7 +269,7 @@ public class Board extends JFrame {
 					
 					
 					playerCodes.removeAll(playerCodes);
-					feedback = "";
+					//feedback = "";
 					//for testing purposes TODO
 					/*for(int i = 0; i < 10; i++) {
 						
@@ -280,6 +280,8 @@ public class Board extends JFrame {
 						}
 					}*/
 					
+				}else {
+					titleLabel.setText("LOSER!!");
 				}
 			}
 		});
@@ -1009,11 +1011,13 @@ public class Board extends JFrame {
 	 * @param guiRow
 	 */
 	private void enableNextRow(int guiRow) {
-		
+		System.out.println(guiRow);
+		if(guiRow < 9) {
 			int nextGuiRow = guiRow + 1;
 				for(int i = 0; i < 4; i++) {
 					marbleGrid[nextGuiRow][i] = true;
 				}
+		}
 		
 	}
 	

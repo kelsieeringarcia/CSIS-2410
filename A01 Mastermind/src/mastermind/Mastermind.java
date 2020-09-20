@@ -9,28 +9,24 @@ import java.util.Random;
  * game. Mastermind has a method playGame() that takes a Player as a parameter, and runs
  * through each player's choice to try and break the code. 
  * 
- * @author czuniga10
+ * @author Chad Zuniga & Kelsie Garcia
  *
  */
 public class Mastermind {
 	private static ArrayList<Codes> codeToBreak;
-	public static boolean gameOver;
 	
 	/**
 	 * Given the players choices from the GUI, the checkForCodeBreak method checks
 	 * to see if the player has won, or it will send a string back with the correct
 	 * Feedback in order to produce the Feedback PNG image.
 	 * 
-	 * @param playerCodes
-	 * @return		String 
+	 * @param 		playerCodes provided by Board Class
+	 * @return		String used to provide Feedback via Board Class
 	 */
 	public static String checkForCodeBreak(ArrayList<Codes> playerCodes) {
 		String feedback = "";
 		if(playerCodes.equals(codeToBreak)) {
-			System.out.println("win");
-			Player.incrementWins();
-			System.out.println(Player.getWins());
-			feedback = "Win";
+			feedback = "BBBB";
 		} else {
 			feedback = convertFeedback(giveFeedback(playerCodes));
 		}
@@ -38,6 +34,11 @@ public class Mastermind {
 		return feedback;
 	}
 	
+	/**
+	 * createCodeToBreak() initialized the game with the Code that needs to be broken
+	 * by the user. It is called as the first method from the Board Class and acts as
+	 * the "Computers" choices.
+	 */
 	public static void createCodeToBreak() {
 		Random rand = new Random();
 		ArrayList<Codes> randomCode = new ArrayList<>();
@@ -69,7 +70,9 @@ public class Mastermind {
 			
 			count++;
 		}
-		System.out.println(randomCode);
+		
+		//Printing winning code so we can show a win for Presentation.
+		System.out.println("Winning Code: " + randomCode);
 		
 		setCodeToBreak(randomCode);
 	}
@@ -78,12 +81,11 @@ public class Mastermind {
 		codeToBreak = codes;
 	}
 	
-	//TODO CHAD line 129 board
+
 	private static ArrayList<Feedback> giveFeedback(ArrayList<Codes> playerCodes) {
 		ArrayList<Codes> copyCodeToBreak = getCodeToBreak();
 		ArrayList<Feedback> feedback = new ArrayList<>();
-		System.out.println("code to break: "+copyCodeToBreak);
-		System.out.println("player picks: " +playerCodes);
+
 		for(int i = 0; i < playerCodes.size(); i++) {
 			if(playerCodes.get(i).equals(codeToBreak.get(i))) {
 				feedback.add(Feedback.BLACK);
@@ -100,12 +102,11 @@ public class Mastermind {
 			
 		
 		Collections.sort(feedback);
-		System.out.println("Feedback: " + feedback);
 
 		return feedback;
 	}
 	
-	public static String convertFeedback(ArrayList<Feedback> feedback) {
+	private static String convertFeedback(ArrayList<Feedback> feedback) {
 		StringBuilder sb = new StringBuilder();
 		if(feedback.isEmpty()) {
 			sb.append("EEEE");
@@ -123,7 +124,6 @@ public class Mastermind {
 			sb.append("E");
 		}
 		
-		System.out.println(sb.toString());
 		return sb.toString();
 	}
 	

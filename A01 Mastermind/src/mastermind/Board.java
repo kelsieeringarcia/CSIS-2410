@@ -226,7 +226,12 @@ public class Board extends JFrame {
 		JPanel panelTitle = new JPanel();
 		panelTitle.setBorder(new LineBorder(new Color(0, 0, 0)));
 		contentPane.add(panelTitle, BorderLayout.NORTH);
+<<<<<<< HEAD
 		titleLabel = new JLabel("Mastermind - Row# "+(guiRow+1));
+=======
+		//TODO KELSIE Change to win or lose
+		titleLabel = new JLabel("Mastermind");
+>>>>>>> 43c7ff686dbe82a1e3de24c69849745bc2a46843
 		titleLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 27));
 		panelTitle.add(titleLabel);
 	}
@@ -375,9 +380,14 @@ public class Board extends JFrame {
 					titleLabel.setText("Mastermind - Row# "+(guiRow+2));
 
 					feedback = Mastermind.checkForCodeBreak(playerCodes);
+<<<<<<< HEAD
 					if(feedback == "BBBB") {
 						titleLabel.setText("WINNER!");
 						win = true;
+=======
+					if(feedback == "Win") {
+						titleLabel.setText("WINNER!");
+>>>>>>> 43c7ff686dbe82a1e3de24c69849745bc2a46843
 					}
 					
 					enableNextRow(guiRow);
@@ -398,9 +408,13 @@ public class Board extends JFrame {
 						}
 					}*/
 					
+<<<<<<< HEAD
 				}else if(guiRow >= 9 && !flag) {
 					feedback = Mastermind.checkForCodeBreak(playerCodes);
 					feedbackIconResults(feedbackArr.get(guiRow));
+=======
+				}else {
+>>>>>>> 43c7ff686dbe82a1e3de24c69849745bc2a46843
 					titleLabel.setText("LOSER!!");
 				}
 			}
@@ -1143,7 +1157,11 @@ public class Board extends JFrame {
 	 */
 	private void enableNextRow(int guiRow) {
 		System.out.println(guiRow);
+<<<<<<< HEAD
 		if(guiRow < 9 && !win) {
+=======
+		if(guiRow < 9) {
+>>>>>>> 43c7ff686dbe82a1e3de24c69849745bc2a46843
 			int nextGuiRow = guiRow + 1;
 				for(int i = 0; i < 4; i++) {
 					marbleGrid[nextGuiRow][i] = true;

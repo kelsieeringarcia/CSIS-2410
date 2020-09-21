@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,15 +21,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
-
+/**
+ * This class holds all of the components of the game board.
+ * This calls upon the logic classes to show on the GUI.
+ * 
+ * @author Kelsie Garcia and Chad Zuniga
+ *
+ */
 @SuppressWarnings("serial")
 public class Board extends JFrame {
 	private JLabel titleLabel;
 	private String colorSelected = "";
 	private String feedback = "";
 	private JPanel contentPane;
-	private int guiRow = 0;
 	private boolean[][] marbleGrid = new boolean[10][4];
 	private ArrayList<Codes> playerCodes = new ArrayList<>();
 	private Codes[][] colorArray = new Codes[10][4];
@@ -45,7 +51,9 @@ public class Board extends JFrame {
 	private JButton btnResults10;
 
 	ArrayList<JButton> feedbackArr = new ArrayList<>();
+	JButton[] allMarbles = new JButton[6];
 
+	private int guiRow = 0;
 
 	/**
 	 * Launch the application.
@@ -73,7 +81,6 @@ public class Board extends JFrame {
 		setBounds(100, 100, 700, 1500);
 		menuBarItems();
 		resetMarbleGridArray();
-
 
 		titleOfGame();
 
@@ -109,13 +116,14 @@ public class Board extends JFrame {
 		gbc_panel.gridy = 0;
 		marbleColorPanel.add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 0, 94, 94, 0, 0, 0, 0 };
+		gbl_panel.columnWidths = new int[] { 74, 77, 75, 0, 0, 0, 0 };
 		gbl_panel.rowHeights = new int[] { 0, 0 };
 		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
 		createPlayerMarbles(panel);
+		unselectMarbleSelection();
 
 		submitBtn(marbleColorPanel);
 
@@ -131,7 +139,9 @@ public class Board extends JFrame {
 
 		createMarbleSlots(panelGame);
 	}
-
+	/**
+	 * This method is for the title of the game and shows what row the player is on.
+	 */
 	private void titleOfGame() {
 		JPanel panelTitle = new JPanel();
 		panelTitle.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -139,12 +149,15 @@ public class Board extends JFrame {
 
 		titleLabel = new JLabel("Mastermind - Row# " + (guiRow + 1));
 
-		titleLabel = new JLabel("Mastermind");
-
 		titleLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 27));
 		panelTitle.add(titleLabel);
 	}
 
+	/**
+	 * This panel holds all the feedback buttons which 
+	 * change their icons based on the feed back the players code gets.
+	 * @param panelResults
+	 */
 	private void feedbackIcons(JPanel panelResults) {
 		btnResults1 = new JButton("");
 		btnResults1.setIcon(null);
@@ -231,7 +244,6 @@ public class Board extends JFrame {
 
 	private void feedbackIconResults(JButton btn) {
 		btn.setIcon(new ImageIcon(Board.class.getResource("/pegIcons/" + feedback + ".PNG")));
-		
 	}
 
 	private void menuBarItems() {
@@ -242,7 +254,8 @@ public class Board extends JFrame {
 	}
 
 	/**
-	 * This is for the game buttons for submitting the color code or go to menu
+	 * This is for the game buttons for submitting the color code. 
+	 * Along with checks to make sure the marble slots are all filled.
 	 * 
 	 * @param panelWinningCode
 	 */
@@ -269,37 +282,30 @@ public class Board extends JFrame {
 					if (feedback == "BBBB") {
 						titleLabel.setText("WINNER!");
 						win = true;
-
-						if (feedback == "Win") {
-							titleLabel.setText("WINNER!");
-
-						}
-
-						enableNextRow(guiRow);
-						disableCurrentRow(guiRow);
-
-						feedbackIconResults(feedbackArr.get(guiRow));
-						guiRow++;
-
-						playerCodes.removeAll(playerCodes);
-
-
-					} else if (guiRow >= 9 && !flag) {
-						feedback = Mastermind.checkForCodeBreak(playerCodes);
-						feedbackIconResults(feedbackArr.get(guiRow));
-
-					} else {
-
-						titleLabel.setText("LOSER!!");
 					}
+
+					enableNextRow(guiRow);
+					disableCurrentRow(guiRow);
+
+					feedbackIconResults(feedbackArr.get(guiRow));
+					guiRow++;
+
+					playerCodes.removeAll(playerCodes);
+
+
+				} else if (guiRow >= 9 && !flag) {
+					feedback = Mastermind.checkForCodeBreak(playerCodes);
+					feedbackIconResults(feedbackArr.get(guiRow));
+					titleLabel.setText("LOSER!!");
+
 				}
 			}
 		});
+
 		GridBagConstraints gbc_submitBtn = new GridBagConstraints();
-		gbc_submitBtn.insets = new Insets(0, 0, 0, 5);
-		gbc_submitBtn.gridx = 1;
-		gbc_submitBtn.gridy = 0;
-		panelWinningCode.add(submitBtn, gbc_submitBtn);
+		gbc_submitBtn.insets=new Insets(0,0,0,5);
+		gbc_submitBtn.gridx=1;gbc_submitBtn.gridy=0;
+		panelWinningCode.add(submitBtn,gbc_submitBtn);
 	}
 
 	/**
@@ -313,6 +319,8 @@ public class Board extends JFrame {
 		redMarbleBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				colorSelected = "RedMarble.JPG";
+				unselectMarbleSelection();
+				colorMarbleSelection(redMarbleBtn);
 			}
 		});
 		redMarbleBtn.setIcon(new ImageIcon(Board.class.getResource("/marbleIcons/RedMarble.JPG")));
@@ -326,6 +334,8 @@ public class Board extends JFrame {
 		yellowMarbleBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				colorSelected = "YellowMarble.JPG";
+				unselectMarbleSelection();
+				colorMarbleSelection(yellowMarbleBtn);
 			}
 		});
 		yellowMarbleBtn.setIcon(new ImageIcon(Board.class.getResource("/marbleIcons/YellowMarble.JPG")));
@@ -339,6 +349,8 @@ public class Board extends JFrame {
 		blueMarbleBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				colorSelected = "BlueMarble.JPG";
+				unselectMarbleSelection();
+				colorMarbleSelection(blueMarbleBtn);
 			}
 		});
 		blueMarbleBtn.setIcon(new ImageIcon(Board.class.getResource("/marbleIcons/BlueMarble.JPG")));
@@ -352,6 +364,8 @@ public class Board extends JFrame {
 		greenMarbleBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				colorSelected = "GreenMarble.JPG";
+				unselectMarbleSelection();
+				colorMarbleSelection(greenMarbleBtn);
 			}
 		});
 		greenMarbleBtn.setIcon(new ImageIcon(Board.class.getResource("/marbleIcons/GreenMarble.JPG")));
@@ -365,6 +379,8 @@ public class Board extends JFrame {
 		blackMarbleBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				colorSelected = "BlackMarble.JPG";
+				unselectMarbleSelection();
+				colorMarbleSelection(blackMarbleBtn);
 			}
 		});
 		blackMarbleBtn.setIcon(new ImageIcon(Board.class.getResource("/marbleIcons/BlackMarble.JPG")));
@@ -378,6 +394,8 @@ public class Board extends JFrame {
 		whiteMarbleBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				colorSelected = "WhiteMarble.JPG";
+				unselectMarbleSelection();
+				colorMarbleSelection(whiteMarbleBtn);
 			}
 		});
 		whiteMarbleBtn.setIcon(new ImageIcon(Board.class.getResource("/marbleIcons/WhiteMarble.JPG")));
@@ -385,6 +403,30 @@ public class Board extends JFrame {
 		gbc_whiteMarbleBtn.gridx = 5;
 		gbc_whiteMarbleBtn.gridy = 0;
 		panel.add(whiteMarbleBtn, gbc_whiteMarbleBtn);
+		
+		allMarbles[0] = redMarbleBtn;
+		allMarbles[1] = yellowMarbleBtn;
+		allMarbles[2] = blueMarbleBtn;
+		allMarbles[3] = greenMarbleBtn;
+		allMarbles[4] = blackMarbleBtn;
+		allMarbles[5] = whiteMarbleBtn;
+		
+		
+	}
+	/**
+	 * This method makes the color marble button look selected
+	 * @param btn
+	 */
+	private void colorMarbleSelection(JButton btn) {
+		btn.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 7));
+	}
+	/**
+	 * This method resets the marble after its unselected.
+	 */
+	private void unselectMarbleSelection() {
+		for(JButton el : allMarbles) {
+			el.setBorder(BorderFactory.createLineBorder(Color.WHITE, 10));
+		}
 	}
 
 	/**
@@ -956,7 +998,6 @@ public class Board extends JFrame {
 
 		}
 	}
-
 
 	/**
 	 * This disables the current row once the submit button is hit

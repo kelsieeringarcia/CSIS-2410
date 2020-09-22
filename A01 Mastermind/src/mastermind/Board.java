@@ -280,7 +280,7 @@ public class Board extends JFrame {
 					feedback = Mastermind.checkForCodeBreak(playerCodes);
 
 					if (feedback == "BBBB") {
-						titleLabel.setText("WINNER!");
+						titleLabel.setText("WINNER!- Exit and re-run to play again");
 						win = true;
 					}
 
@@ -296,7 +296,7 @@ public class Board extends JFrame {
 				} else if (guiRow >= 9 && !flag) {
 					feedback = Mastermind.checkForCodeBreak(playerCodes);
 					feedbackIconResults(feedbackArr.get(guiRow));
-					titleLabel.setText("LOSER!!");
+					titleLabel.setText("LOSER!!- Exit and re-run to play again");
 
 				}
 			}

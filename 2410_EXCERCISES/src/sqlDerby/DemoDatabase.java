@@ -6,54 +6,12 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DemoDatabase {
 
 	private static final String dataBaseURL = "jdbc:derby:FirstDataBase;create=true";
-
-	private static final String sqlCreateStudentTable = "CREATE TABLE Student (" + "ID int not null primary key"
-			+ " GENERATED ALWAYS AS IDENTITY" + " (START WITH 1234, INCREMENT BY 1)," + "FirstName varchar(255),"
-			+ "LastName varchar(255)," + "Major varchar(255)," + "GradYear int)";
-
-	private static final String sqlDropStudentTable = "DROP TABLE Student";
-
-	private static final String sqlInsertStudentData = "INSERT INTO Student (FirstName, LastName, Major, GradYear) "
-			+ "VALUES ('Joe' , 'Bing', 'CS', 2021)," + " ('Pam' , 'Ryan', 'EN', 2024),"
-			+ " ('Max' , 'Hank', 'CE', 2019)," + " ('Amy' , 'Blue', 'CS', 2022) ";
-
-	private static final String sqlAllStudents = "SELECT ID, FirstName, LastName, Major, GradYear " + "FROM Student";
-	
-	private static final String sqlAllStudentsIDandName = "SELECT ID, FirstName, LastName " + "FROM Student";
-	
-	private static final String sqlAllCSStudents = "SELECT * " + "FROM Student " + "WHERE Major = 'CS' ";
-	
-	private static final String sqlCreateCollegeTable = "CREATE TABLE College (" 
-			+ "ID int not null primary key"
-			+ " GENERATED ALWAYS AS IDENTITY" 
-			+ " (START WITH 7123, INCREMENT BY 1)," 
-			+ "Name varchar(255),"
-			+ "State varchar(2))";
-	
-	private static final String sqlInsertCollegeData = "INSERT INTO College (Name, State) " 
-			+ "VALUES ('SLCC' , 'UT'), "
-			+ "('BYU', 'UT'), "
-			+ "('UVU', 'UT'), "
-			+ "('YALE', 'CT')";
-	
-	private static final String sqlAllCollege = "SELECT * " + "FROM College";
-	
-	private static final String sqlCreateStudentCollegeTable = "CREATE TABLE StudentCollege (" 
-			+ "StudentId int,"
-			+ "CollegeId int)";
-	
-	private static final String sqlInsertStudentCollegeData = "INSERT INTO StudentCollege (StudentId, CollegeId) " 
-			+ "VALUES (1234, 7124), "
-			+ "(1235, 7126), "
-			+ "(1236, 7125), "
-			+ "(1236, 7125), "
-			+ "(1237, 7123)";
-	
-	private static final String sqlAllStudentCollege = "SELECT * " + "FROM StudentCollege";
 
 	private static void printResults(ResultSet resultSet) {
 
@@ -110,19 +68,84 @@ public class DemoDatabase {
 	}
 
 	public static void main(String[] args) {
+		/*printQueryResults(SqlStudentCollege.getAll(), SqlCollege.getAll(), SqlStudent.getAll(), 
+				SqlStudentCollege.getStudentNamesAndColleges());*/
+		List<Student> studentList = new ArrayList<>();
+		System.out.println("List of all Students: ");
+		for(Student s : studentList) {
+			System.out.println(s);
+		}
+		//System.out.println(studentList);
+		
+		System.out.println("\ndone.");
+
+	}
+	
+	//... makes an array of queries to be executed
+	private static void printQueryResults(String...queries) {
 		try (Connection connection = DriverManager.getConnection(dataBaseURL);
 				Statement statement = connection.createStatement();) {
-
+	
+			for(String query : queries) {
+				ResultSet resultSet = statement.executeQuery(query);
+				printResults(resultSet);
+				System.out.println();
+			}
 			
-			//statement.execute(sqlCreateStudentCollegeTable);
-			//statement.execute(sqlInsertStudentCollegeData);
-			ResultSet resultSet = statement.executeQuery(sqlAllStudentCollege);
-			printResults(resultSet);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("\ndone.");
+	}
+	
+	private static ResultSet getResultSet(String query) {
+		try (Connection connection = DriverManager.getConnection(dataBaseURL);
+				Statement statement = connection.createStatement();) {
+	
+				return statement.executeQuery(query);
 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	//add constructed student to a list in order to print out the constructed student data
+	private static List<Student> getStudentList() {
+		List<Student> students = new ArrayList<>();
+		try (Connection connection = DriverManager.getConnection(dataBaseURL);
+				Statement statement = connection.createStatement();) {
+	
+				ResultSet resultSet = statement.executeQuery(SqlStudent.getAll());
+				//add students to list
+
+				while (resultSet.next()) {
+					int id = resultSet.getInt(1);
+					String firstName = resultSet.getString(2);
+					String lastName = resultSet.getString(3);
+					String major = resultSet.getString(4);
+					int gradYear = resultSet.getInt(5);
+					
+					students.add(new Student(id, firstName, lastName, major, gradYear));
+				}
+					
+				
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return students;
+	}
+	
+	private static void execute(String sqlStatement) {
+		try (Connection connection = DriverManager.getConnection(dataBaseURL);
+				Statement statement = connection.createStatement();) {
+			
+			statement.execute(sqlStatement);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

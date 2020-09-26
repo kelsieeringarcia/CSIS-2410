@@ -66,20 +66,6 @@ public class DemoDatabase {
 		}
 
 	}
-
-	public static void main(String[] args) {
-		/*printQueryResults(SqlStudentCollege.getAll(), SqlCollege.getAll(), SqlStudent.getAll(), 
-				SqlStudentCollege.getStudentNamesAndColleges());*/
-		List<Student> studentList = new ArrayList<>();
-		System.out.println("List of all Students: ");
-		for(Student s : studentList) {
-			System.out.println(s);
-		}
-		//System.out.println(studentList);
-		
-		System.out.println("\ndone.");
-
-	}
 	
 	//... makes an array of queries to be executed
 	private static void printQueryResults(String...queries) {
@@ -110,7 +96,8 @@ public class DemoDatabase {
 		
 		return null;
 	}
-	//add constructed student to a list in order to print out the constructed student data
+	
+	//add constructor student to a list in order to print out the constructed student data
 	private static List<Student> getStudentList() {
 		List<Student> students = new ArrayList<>();
 		try (Connection connection = DriverManager.getConnection(dataBaseURL);
@@ -137,7 +124,10 @@ public class DemoDatabase {
 		
 		return students;
 	}
-	
+	/**
+	 * executes sql statements
+	 * @param sqlStatement
+	 */
 	private static void execute(String sqlStatement) {
 		try (Connection connection = DriverManager.getConnection(dataBaseURL);
 				Statement statement = connection.createStatement();) {
@@ -146,6 +136,21 @@ public class DemoDatabase {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void main(String[] args) {
+		/*printQueryResults(SqlStudentCollege.getAll(), SqlCollege.getAll(), SqlStudent.getAll(), 
+				SqlStudentCollege.getStudentNamesAndColleges());*/
+		List<Student> studentList = new ArrayList<>();
+		
+		System.out.println("List of all Students: ");
+		for(Student s : studentList) {
+			System.out.println(s);
+		}
+		//System.out.println(studentList);
+		
+		System.out.println("\ndone.");
+
 	}
 
 }

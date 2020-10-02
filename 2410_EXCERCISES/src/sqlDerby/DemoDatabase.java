@@ -139,14 +139,14 @@ public class DemoDatabase {
 	}
 	
 	public static void main(String[] args) {
-		/*printQueryResults(SqlStudentCollege.getAll(), SqlCollege.getAll(), SqlStudent.getAll(), 
-				SqlStudentCollege.getStudentNamesAndColleges());*/
-		List<Student> studentList = new ArrayList<>();
+		printQueryResults(SqlStudentCollege.getAll(), SqlCollege.getAll(), SqlStudent.getAll(), 
+				SqlStudentCollege.getStudentNamesAndColleges());
+		/*List<Student> studentList = new ArrayList<>();
 		
 		System.out.println("List of all Students: ");
 		for(Student s : studentList) {
 			System.out.println(s);
-		}
+		}*/
 		//System.out.println(studentList);
 		
 		System.out.println("\ndone.");

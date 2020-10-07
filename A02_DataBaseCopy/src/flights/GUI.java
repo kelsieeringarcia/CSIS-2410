@@ -3,8 +3,6 @@ package flights;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.*;
 import java.text.NumberFormat;
 import java.awt.event.MouseAdapter;
@@ -199,8 +197,12 @@ public class GUI extends JFrame {
             e.printStackTrace();
         }
     }
-
+    /**
+     * This takes what is selected from the JTable and deletes the flight selected
+     * from the table and the database
+     */
 	private void removeFlight() {
+		int number = Integer.parseInt(inputNumber.getText());
 		// check for selected row first
 		if (table.getSelectedRow() != -1) {
 			// remove selected row from the model
@@ -208,18 +210,14 @@ public class GUI extends JFrame {
 			JOptionPane.showMessageDialog(null, "Selected row deleted successfully");
 		}
 		try (Connection connection = DriverManager.getConnection(databaseURL);
-                Statement statement = connection.createStatement()) {
-			//TODO connect the selected data with bottom panel to ensure its being removed from the database
-        //statement.execute(SqlFlight.removeFlightWhere(airlineId, number, airportId, status, gate, date, time, duration));
-			//TODO also make updates to updateJTable method to delete
-        //updateJTable();
-    }
-    catch (SQLException e) {
-        System.err.println("There was a problem adding a flight.");
-        e.printStackTrace();
-    }
+				Statement statement = connection.createStatement()) {
+			 statement.execute(SqlFlight.removeFlightWhere(number));
+		} catch (SQLException e) {
+			System.err.println("There was a problem deleting the flight.");
+			e.printStackTrace();
+		}
 	}
-    
+
     private void createJTable() {
         try (Connection connection = DriverManager.getConnection(databaseURL);
              Statement statement = connection.createStatement()) {
@@ -252,7 +250,7 @@ public class GUI extends JFrame {
                      //Constructs a row of data together
                      row = new Row(airlineIdBox.toString(), flightNumBox.toString(), destinationBox.toString(), statusBox.toString(), 
                     		 gateBox.toString(), dateBox.toString(), timeBox.toString(), durationBox.toString());
-
+                     //This updates the JComboBoxes with the data selected on the table
                      inputAirline.setSelectedItem(row.airlineToId());
                      inputNumber.setText(flightNumBox.toString());
                      inputAirport.setSelectedItem(row.destinationToId());
@@ -263,7 +261,7 @@ public class GUI extends JFrame {
                      inputDuration.setText(durationBox.toString());
                      
                      
-                     //showing the output in the console
+                     //TODO showing the output in the console for testing
                      System.out.println(row.toString());
                      
             		

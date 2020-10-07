@@ -82,6 +82,16 @@ public class SqlFlight {
                 "SELECT * "
                 + "FROM Flight";
     }
+    /**
+     * This query will remove the specific flight from the selected table.
+     * @param number
+     * @return A DELETE query
+     */
+    public static String removeFlightWhere(int number) {
+    	return "DELETE "
+    			+"FROM Flight "
+    			+ "WHERE Number = " + number;
+    }
 
     /**
      * Find all flights and sort them by a specified column

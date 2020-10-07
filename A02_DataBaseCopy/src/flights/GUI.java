@@ -31,7 +31,6 @@ public class GUI extends JFrame {
     private JButton btnUpdateFlight;
     private Row row;
     private int currentRow;
-    private int columnCount;
     private int colNo;
     
 
@@ -253,10 +252,10 @@ public class GUI extends JFrame {
                      //Constructs a row of data together
                      row = new Row(airlineIdBox.toString(), flightNumBox.toString(), destinationBox.toString(), statusBox.toString(), 
                     		 gateBox.toString(), dateBox.toString(), timeBox.toString(), durationBox.toString());
-                     
-                     inputAirline.setSelectedItem(airlineIdBox);
+
+                     inputAirline.setSelectedItem(row.airlineToId());
                      inputNumber.setText(flightNumBox.toString());
-                     
+                     inputAirport.setSelectedItem(row.destinationToId());
                      inputStatus.setSelectedItem(statusBox);
                      inputGate.setSelectedItem(gateBox);
                      inputDate.setText(dateBox.toString());
@@ -264,9 +263,9 @@ public class GUI extends JFrame {
                      inputDuration.setText(durationBox.toString());
                      
                      
+                     //showing the output in the console
+                     System.out.println(row.toString());
                      
-                     //System.out.println(row.toString());
-                     //TODO now that the information prints assign it to the bottom row to show those fields.
             		
             	}
             });

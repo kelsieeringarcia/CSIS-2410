@@ -2,12 +2,13 @@ package flights;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 import java.text.NumberFormat;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GUI extends JFrame {
     // SQL Connection
@@ -17,16 +18,22 @@ public class GUI extends JFrame {
     // GUI Components
     private JTable table;
     private DefaultTableModel tableModel;
-    private JComboBox inputAirline;
+    private JComboBox<String> inputAirline;
     private JFormattedTextField inputNumber;
-    private JComboBox inputAirport;
-    private JComboBox inputStatus;
-    private JComboBox inputGate;
+    private JComboBox<String> inputAirport;
+    private JComboBox<String> inputStatus;
+    private JComboBox<String> inputGate;
     private JTextField inputDate;
     private JTextField inputTime;
     private JFormattedTextField inputDuration;
     private JButton btnAddFlight;
     private JButton btnRemoveFlight;
+    private JButton btnUpdateFlight;
+    private Row row;
+    private int currentRow;
+    private int columnCount;
+    private int colNo;
+    
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -50,19 +57,19 @@ public class GUI extends JFrame {
             // TODO split sections into separate methods
 
             // Window
-            this.setLayout(new BorderLayout());
+            getContentPane().setLayout(new BorderLayout());
             JPanel topPanel = new JPanel(new BorderLayout());
             JPanel bottomPanel = new JPanel(new BorderLayout());
 
             // Top Panel
             JTextField searchbar = new JTextField();
-            // TODO replace with table and column names
-            JComboBox comboColumn = new JComboBox(new String[]{"Destination"});
+            // TODO replace with table names
+            JComboBox comboColumn = new JComboBox(SqlColumn.values());
             JComboBox comboTable = new JComboBox(new String[]{"Flight Table"});
             searchbar.setPreferredSize(new Dimension(260,26));
             JButton btnSearch = new JButton("Search");
-            this.add(topPanel, BorderLayout.NORTH);
-            topPanel.setBackground(Color.MAGENTA);
+            getContentPane().add(topPanel, BorderLayout.NORTH);
+            topPanel.setBackground(Color.BLUE);
             FlowLayout flowLayout = new FlowLayout();
             flowLayout.setAlignment(FlowLayout.RIGHT);
             topPanel.setLayout(flowLayout);
@@ -75,28 +82,27 @@ public class GUI extends JFrame {
             // Table
             createJTable();
             JScrollPane pane = new JScrollPane(table);
-            this.add(pane, BorderLayout.CENTER);
+            //Makes sure only one row can be selected at a time
+            table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+            
+            getContentPane().add(pane, BorderLayout.CENTER);
+           
+            
 
             // Bottom
-            bottomPanel.setBackground(Color.YELLOW);
-            this.add(bottomPanel, BorderLayout.SOUTH);
+            bottomPanel.setBackground(Color.CYAN);
+            getContentPane().add(bottomPanel, BorderLayout.SOUTH);
             bottomPanel.setLayout(flowLayout);
-            // TODO replace hardcoded values with contents of airline and airport tables
-            inputAirline = new JComboBox(new String[]{
-                    "AA", "AS", "DL", "UA", "WN"});
+            
+            inputAirline = new JComboBox<String>();
             NumberFormat numberFormat = NumberFormat.getNumberInstance();
             inputNumber = new JFormattedTextField(numberFormat);
             inputNumber.setValue(0);
             inputNumber.setColumns(4);
             inputNumber.setPreferredSize(new Dimension(40,26));
-            inputAirport = new JComboBox(new String[]{
-                    "KSLC", "EGLL", "KDEN", "KJFK", "KSFO", "KLAX"});
-            inputStatus = new JComboBox(new String[]{
-                    "On Time", "Now Boarding", "Delayed", "Canceled"});
-            inputGate = new JComboBox(new String[]{
-                    "A01", "A02", "A03", "A04", "A05",
-                    "B01", "B02", "B03", "B04", "B05",
-                    "C01", "C02", "C03", "C04", "C05"});
+            inputAirport = new JComboBox<String>();
+            inputStatus = new JComboBox<String>();
+            inputGate = new JComboBox<String>();
             inputDate = new JTextField("Date");
             inputDate.setPreferredSize(new Dimension(56,26));
             inputTime = new JTextField("Time");
@@ -104,9 +110,10 @@ public class GUI extends JFrame {
             inputDuration = new JFormattedTextField(numberFormat);
             inputNumber.setValue(0);
             inputDuration.setPreferredSize(new Dimension(56,26));
-
+            
             btnAddFlight = new JButton("Add Flight");
             btnRemoveFlight = new JButton("Remove Flight");
+            btnUpdateFlight = new JButton("Update Flight");
 
             bottomPanel.add(inputAirline);
             bottomPanel.add(inputNumber);
@@ -120,12 +127,49 @@ public class GUI extends JFrame {
             bottomPanel.add(btnAddFlight);
             btnAddFlight.addActionListener(e -> addFlight());
             bottomPanel.add(btnRemoveFlight);
+            btnRemoveFlight.addActionListener(e -> removeFlight());
+            bottomPanel.add(btnUpdateFlight);
+            fillBottomComboboxes();
             this.pack();
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
     }
+    
+    /**
+     * This method is meant to pull the data from the database and add to the JComboBox
+     * Starting with airline ID 
+     */
+    private void fillBottomComboboxes() {
+    	try (Connection connection = DriverManager.getConnection(databaseURL);
+             Statement statement = connection.createStatement()) {
+    		
+    		//Retrieving column fields and adding to the combo boxes
+            ResultSet rs = statement.executeQuery(SqlAirline.getAll());
+            while(rs.next()) {
+            	inputAirline.addItem(rs.getString("Id"));
+            }
+            rs = statement.executeQuery(SqlAirport.getAll());
+            while(rs.next()) {
+            	inputAirport.addItem(rs.getString("Id"));
+            }
+            rs = statement.executeQuery(SqlStatus.getAll());
+            while(rs.next()) {
+            	inputStatus.addItem(rs.getString("Description"));
+            }
+            rs = statement.executeQuery(SqlGate.getAll());
+            while(rs.next()) {
+            	inputGate.addItem(rs.getString("Id"));
+            }
+            
+    	}catch (SQLException e) {
+            System.err.println("There was a problem filling combo boxes.");
+            e.printStackTrace();
+        }
+    }
+    
+    
 
     private void addFlight() {
         String airlineId = String.valueOf(inputAirline.getSelectedItem());
@@ -157,6 +201,26 @@ public class GUI extends JFrame {
         }
     }
 
+	private void removeFlight() {
+		// check for selected row first
+		if (table.getSelectedRow() != -1) {
+			// remove selected row from the model
+			tableModel.removeRow(table.getSelectedRow());
+			JOptionPane.showMessageDialog(null, "Selected row deleted successfully");
+		}
+		try (Connection connection = DriverManager.getConnection(databaseURL);
+                Statement statement = connection.createStatement()) {
+			//TODO connect the selected data with bottom panel to ensure its being removed from the database
+        //statement.execute(SqlFlight.removeFlightWhere(airlineId, number, airportId, status, gate, date, time, duration));
+			//TODO also make updates to updateJTable method to delete
+        //updateJTable();
+    }
+    catch (SQLException e) {
+        System.err.println("There was a problem adding a flight.");
+        e.printStackTrace();
+    }
+	}
+    
     private void createJTable() {
         try (Connection connection = DriverManager.getConnection(databaseURL);
              Statement statement = connection.createStatement()) {
@@ -169,9 +233,43 @@ public class GUI extends JFrame {
             columnLabels = new Object[colNo];
             for (int i = 0; i < colNo; i++) {
                 columnLabels[i] = rsmd.getColumnLabel(i + 1);
+                
             }
 
             table = new JTable(new DefaultTableModel(columnLabels, 0));
+            table.addMouseListener(new MouseAdapter() {
+            	@Override
+            	public void mouseClicked(MouseEvent e) {
+            		 currentRow = table.getSelectedRow();
+            		 
+                     Object airlineIdBox = tableModel.getValueAt(currentRow, 0);
+                     Object flightNumBox = tableModel.getValueAt(currentRow, 1);
+                     Object destinationBox = tableModel.getValueAt(currentRow, 2);
+                     Object statusBox = tableModel.getValueAt(currentRow, 3);
+                     Object gateBox = tableModel.getValueAt(currentRow, 4);
+                     Object dateBox = tableModel.getValueAt(currentRow, 5);
+                     Object timeBox = tableModel.getValueAt(currentRow, 6);
+                     Object durationBox = tableModel.getValueAt(currentRow, 7);
+                     //Constructs a row of data together
+                     row = new Row(airlineIdBox.toString(), flightNumBox.toString(), destinationBox.toString(), statusBox.toString(), 
+                    		 gateBox.toString(), dateBox.toString(), timeBox.toString(), durationBox.toString());
+                     
+                     inputAirline.setSelectedItem(airlineIdBox);
+                     inputNumber.setText(flightNumBox.toString());
+                     
+                     inputStatus.setSelectedItem(statusBox);
+                     inputGate.setSelectedItem(gateBox);
+                     inputDate.setText(dateBox.toString());
+                     inputTime.setText(timeBox.toString());
+                     inputDuration.setText(durationBox.toString());
+                     
+                     
+                     
+                     //System.out.println(row.toString());
+                     //TODO now that the information prints assign it to the bottom row to show those fields.
+            		
+            	}
+            });
             tableModel = (DefaultTableModel) table.getModel();
 
             while (rs.next()) {
@@ -188,6 +286,7 @@ public class GUI extends JFrame {
             e.printStackTrace();
         }
     }
+    
 
     private void updateJTable() {
         try (Connection connection = DriverManager.getConnection(databaseURL);
@@ -197,7 +296,7 @@ public class GUI extends JFrame {
             ResultSetMetaData rsmd = rs.getMetaData();
 
             Object[] columnLabels;
-            int colNo = rsmd.getColumnCount();
+            colNo = rsmd.getColumnCount();
             columnLabels = new Object[colNo];
             for (int i = 0; i < colNo; i++) {
                 columnLabels[i] = rsmd.getColumnLabel(i + 1);
@@ -212,9 +311,10 @@ public class GUI extends JFrame {
             while (rs.next()) {
                 Object[] objects = new Object[colNo];
                 for (int i = 0; i < colNo; i++) {
-                    objects[i] = rs.getObject(i + 1); // SQL is indexes start at 1
+                    objects[i] = rs.getObject(i + 1); // SQL is indexes start at 1                    
                 }
                 tableModel.addRow(objects);
+                
             }
             tableModel.fireTableDataChanged();
             table.setModel(tableModel);

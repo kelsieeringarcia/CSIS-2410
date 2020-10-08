@@ -92,6 +92,20 @@ public class SqlFlight {
     			+"FROM Flight "
     			+ "WHERE Number = " + number;
     }
+    /**
+     * This query will update the selected row in the database.
+     */
+    public static String updateFlight(
+            String airlineId, int number, String airportId, int status,
+            String gate, String date, String time, int duration) {
+
+        return
+                "UPDATE Flight "
+                + "SET AirlineId = '" + airlineId + "', Destination = '" + airportId 
+                + "', Status = '" + status + "', Gate = '" + gate + "', Date = '" + date + "', Time = '" 
+                + time + "', Duration = '" + duration  
+                +"WHERE Number = '" + number +"' ";
+    }
 
     /**
      * Find all flights and sort them by a specified column

@@ -1,5 +1,10 @@
 package flights;
-
+/**
+ * Constructs the selected Row and other methods to help query data
+ * from selected rows.
+ * @author kelsiegarcia
+ *
+ */
 public class Row {
 	private String col1; 
 	private String col2; 
@@ -10,6 +15,17 @@ public class Row {
 	private String col7; 
 	private String col8;
 	
+	/**
+	 * This constructs a row so we can manipulate the selected data.
+	 * @param col1 AirlineName
+	 * @param col2 FlightNumber
+	 * @param col3 Destination
+	 * @param col4 Status Description
+	 * @param col5 Gate
+	 * @param col6 Date
+	 * @param col7 Time
+	 * @param col8 Duration
+	 */
 	public Row(String col1, String col2, String col3, String col4, String col5, String col6, String col7, String col8) {
 		super();
 		
@@ -23,6 +39,10 @@ public class Row {
 		this.col8 = col8;
 	}
 	
+	/**
+	 * Changes the Airline name to Id to fit in query
+	 * @return AirlineId
+	 */
 	public String airlineToId() {
 		String id = "";
 		switch(col1) {
@@ -61,6 +81,10 @@ public class Row {
 		return id;
 	}
 	
+	/**
+	 * Changes the destination from the JTable to the id to fit in a query.
+	 * @return AirportId
+	 */
 	public String destinationToId() {
 		String id = "";
 		switch(col3) {

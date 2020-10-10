@@ -257,14 +257,24 @@ public class GUI extends JFrame {
         String date = String.valueOf(inputDate.getText());
         String time = String.valueOf(inputTime.getText());
         int duration = Integer.parseInt(inputDuration.getText());
+        
+        String update =  "INSERT INTO Flight (Airline, Number, Destination, Status, Gate, Date, Time, Duration) "
+                + "VALUES ('" + inputAirline.getSelectedItem() + "', " + inputNumber.getText() + ", '" 
+        		+ inputAirport.getSelectedItem() + "', " + SqlStatus.getId((String) inputStatus.getSelectedItem())
+        		+ ", '" + inputGate.getSelectedItem() + "', '" + inputDate.getText() + "', '" + inputTime.getText() + "', " + inputDuration.getText() +")";
+        
 
         // Update database
+//        try (Connection connection = DriverManager.getConnection(databaseURL);
+//                Statement statement = connection.createStatement()) {
+//
+//            statement.executeUpdate(SqlFlight.insertValue(airlineId, number, airportId, status, gate, date, time, duration));
         try (Connection connection = DriverManager.getConnection(databaseURL);
-                Statement statement = connection.createStatement()) {
-
-            statement.execute(SqlFlight.insertValue(airlineId, number, airportId, status, gate, date, time, duration));
+				PreparedStatement statement = connection.prepareStatement(update)) {
+			statement.executeUpdate();
+			connection.close();
         } catch (SQLException e) {
-            System.err.println("There was a problem updating the flight.");
+            System.err.println("There was a problem adding the flight.");
             e.printStackTrace();
         }
 
@@ -301,38 +311,50 @@ public class GUI extends JFrame {
 	private void updateFlight() { 
         //Updates the values on the JTable
         int i = table.getSelectedRow();
-        //table.setValueAt(aValue, i, 0);
         table.setValueAt(SqlAirline.getId((String) inputAirline.getSelectedItem()), i, 1);
         System.out.println(SqlAirline.getId((String) inputAirline.getSelectedItem()));
-        //table.setValueAt(row.idToAirline((String) inputAirline.getSelectedItem()), i, 1);
         table.setValueAt(inputNumber.getText(), i, 2);
         table.setValueAt(SqlAirport.getId((String) inputAirport.getSelectedItem()), i, 3);
-        //table.setValueAt(row.idToDestination((String) (inputAirport.getSelectedItem())), i, 3);
         table.setValueAt(SqlStatus.getId((String) inputStatus.getSelectedItem()), i, 4);
         table.setValueAt(inputGate.getSelectedItem(), i, 5);
         table.setValueAt(inputDate.getText(), i, 6);
         table.setValueAt(inputTime.getText(), i, 7);
         table.setValueAt(inputDuration.getText(), i, 8);
+        String update = "UPDATE Flight "
+        	  + "SET Airline = '" + inputAirline.getSelectedItem() + "', Number = " + inputNumber.getText() + ", Destination = '" + inputAirport.getSelectedItem()
+        	  + "', Status = " + SqlStatus.getId((String) inputStatus.getSelectedItem()) + ", Gate = '" + inputGate.getSelectedItem() 
+        	  + "', Date = '" + inputDate.getText() + "', Time = '" + inputTime.getText() + "', Duration = " 
+        	  + inputDuration.getText()  
+        	  +" WHERE Flight.Id = " + selectedFlightId;
+        	        //TODO
+        	        System.out.println(update);
+        			try (Connection connection = DriverManager.getConnection(databaseURL);
+        					PreparedStatement statement = connection.prepareStatement(update)) {
+        				statement.executeUpdate();
+        				connection.close();
+        			} catch (SQLException e) {
+        				System.err.println("There was a problem updating the flight.");
+        				e.printStackTrace();
+        			}
         
-        // Get input values
-        int flightId = selectedFlightId;
-        String airlineId = SqlAirline.getId(String.valueOf(inputAirline.getSelectedItem()));
-        int number = Integer.parseInt(inputNumber.getText());
-        String airportId = SqlAirport.getId(String.valueOf(inputAirport.getSelectedItem()));
-        int status = SqlStatus.getId(inputStatus.getSelectedItem().toString());
-        String gate = String.valueOf(inputGate.getSelectedItem());
-        String date = String.valueOf(inputDate.getText());
-        String time = String.valueOf(inputTime.getText());
-        int duration = Integer.parseInt(inputDuration.getText());
-        // Update database
-        try (Connection connection = DriverManager.getConnection(databaseURL);
-                Statement statement = connection.createStatement()) {
-
-            statement.execute(SqlFlight.updateFlight(flightId, airlineId, number, airportId, status, gate, date, time, duration));
-        } catch (SQLException e) {
-            System.err.println("There was a problem updating the flight.");
-            e.printStackTrace();
-        }
+//        // Get input values
+//        String airlineId = SqlAirline.getId(String.valueOf(inputAirline.getSelectedItem()));
+//        int number = Integer.parseInt(inputNumber.getText());
+//        String airportId = SqlAirport.getId(String.valueOf(inputAirport.getSelectedItem()));
+//        int status = SqlStatus.getId(inputStatus.getSelectedItem().toString());
+//        String gate = String.valueOf(inputGate.getSelectedItem());
+//        String date = String.valueOf(inputDate.getText());
+//        String time = String.valueOf(inputTime.getText());
+//        int duration = Integer.parseInt(inputDuration.getText());
+//        // Update database
+//        try (Connection connection = DriverManager.getConnection(databaseURL);
+//                Statement statement = connection.createStatement()) {
+//
+//            statement.execute(SqlFlight.updateFlight(selectedFlightId, airlineId, number, airportId, status, gate, date, time, duration));
+//        } catch (SQLException e) {
+//            System.err.println("There was a problem updating the flight.");
+//            e.printStackTrace();
+//        }
 
         // Refresh the table display
         sortJPanel();
@@ -346,6 +368,13 @@ public class GUI extends JFrame {
 //                + "', Date = '" + inputDate.getText() + "', Time = '" + inputTime.getText() + "', Duration = " 
 //                + inputDuration.getText()  
 //                +" WHERE Number = " + inputNumber.getText();
+	
+//  String update = "UPDATE Flight "
+//  + "SET Airline = '" + inputAirline.getSelectedItem() + Number = " + inputNumber.getText() + "', Destination = '" + inputAirport.getSelectedItem()
+//  + "', Status = " + row.statusToId(inputStatus.getSelectedItem()) + ", Gate = '" + inputGate.getSelectedItem() 
+//  + "', Date = '" + inputDate.getText() + "', Time = '" + inputTime.getText() + "', Duration = " 
+//  + inputDuration.getText()  
+//  +" WHERE Flight.Id = " + selectedFlightId;
 //        //TODO
 //        System.out.println(update);
 //		try (Connection connection = DriverManager.getConnection(databaseURL);

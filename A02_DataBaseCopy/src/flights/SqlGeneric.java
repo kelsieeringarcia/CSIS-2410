@@ -2,6 +2,11 @@ package flights;
 
 import java.sql.*;
 
+/**
+ * SQL for creating/reseting the JTable
+ *@author Kelsie Garcia and Aiden Van Dyke
+ *
+ */
 public class SqlGeneric {
     private static final String databaseURL =
             "jdbc:derby:FlightsDB;create=true";

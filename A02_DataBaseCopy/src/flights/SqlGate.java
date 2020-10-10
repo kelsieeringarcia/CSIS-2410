@@ -1,22 +1,43 @@
 package flights;
 
+/**
+ * SQL for the Gate table.
+ * @author Kelsie Garcia and Aiden Van Dyke
+ *
+ */
 public class SqlGate {
 
+	/**
+	 * Drops the gate table.
+	 * @return SQL statement
+	 */
     public static String dropTable() {
         return "DROP TABLE Gate";
     }
 
+    /**
+     * Creates gate table.
+     * @return SQL statement
+     */
     public static String createTable() {
         return
                 "CREATE TABLE Gate ("
                 + "Id varchar(255) not null primary key)";
     }
 
+    /**
+     * Deleting from gate table.
+     * @return SQL statement
+     */
     public static String removeData() {
         return
                 "DELETE FROM Gate";
     }
 
+    /**
+     * Inserts data into gate table.
+     * @return SQL statement
+     */
     public static String insertData() {
         return
                 "INSERT INTO Gate(Id) "
@@ -37,6 +58,10 @@ public class SqlGate {
                 + "('C05')";
     }
 
+    /**
+     * Selects all from gate table
+     * @return SQL statement
+     */
     public static String getAll() {
         return
                 "SELECT * "

@@ -1,5 +1,9 @@
 package flights;
-
+/**
+ * Enum used for the different columns in the tables
+ *@author Kelsie Garcia and Aiden Van Dyke
+ *
+ */
 @SuppressWarnings("unused")
 public enum SqlColumn {
     FLIGHT_ID("Flight.Id"),

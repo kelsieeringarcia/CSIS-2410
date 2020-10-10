@@ -41,12 +41,11 @@ public class GUI extends JFrame {
     private JButton btnRemoveFlight;
     private JButton btnUpdateFlight;
     private JTextField inputSearch;
-    private JComboBox inputSearchColumn;
+    private JComboBox<String> inputSearchColumn;
     private int selectedFlightId;
     private int currentRow;
     private int colNo;
 
-	private Row row;
     
 
     public static void main(String[] args) {
@@ -296,9 +295,16 @@ public class GUI extends JFrame {
 			tableModel.removeRow(table.getSelectedRow());
 			JOptionPane.showMessageDialog(null, "Selected row deleted successfully");
 		}
+		String update = "DELETE "
+    			+"FROM Flight "
+    			+ "WHERE Flight.Id = " + selectedFlightId;
+//		try (Connection connection = DriverManager.getConnection(databaseURL);
+//				Statement statement = connection.createStatement()) {
+//			 statement.execute(SqlFlight.removeFlightWhere(number));
 		try (Connection connection = DriverManager.getConnection(databaseURL);
-				Statement statement = connection.createStatement()) {
-			 statement.execute(SqlFlight.removeFlightWhere(number));
+				PreparedStatement statement = connection.prepareStatement(update)) {
+			statement.executeUpdate();
+			connection.close();
 		} catch (SQLException e) {
 			System.err.println("There was a problem deleting the flight.");
 			e.printStackTrace();

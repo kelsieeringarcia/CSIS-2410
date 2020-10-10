@@ -66,15 +66,15 @@ public class SqlFlight {
                 + "('WN', 9018, 'KPHX', 0, 'A05', 'Sep 03', '03:45', 160)";
     }
 
-    public static String insertValue(
-            String airlineId, int number, String airportId, int status,
-            String gate, String date, String time, int duration) {
-
-        return
-                "INSERT INTO Flight (Airline, Number, Destination, Status, Gate, Date, Time, Duration) "
-                + "VALUES ('" + airlineId + "', " + number + ", '" + airportId + "', " + status
-                + ", '" + gate + "', '" + date + "', '" + time + "', " + duration +")";
-    }
+//    public static String insertValue(
+//            String airlineId, int number, String airportId, int status,
+//            String gate, String date, String time, int duration) {
+//
+//        return
+//                "INSERT INTO Flight (Airline, Number, Destination, Status, Gate, Date, Time, Duration) "
+//                + "VALUES ('" + airlineId + "', " + number + ", '" + airportId + "', " + status
+//                + ", '" + gate + "', '" + date + "', '" + time + "', " + duration +")";
+//    }
 
     public static String getAll() {
         return

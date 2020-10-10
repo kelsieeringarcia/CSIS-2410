@@ -69,7 +69,7 @@ public class GUI extends JFrame {
             // Table
             createJTable();
             JScrollPane pane = new JScrollPane(table);
-            pane.setViewportBorder(new EmptyBorder(10, 15, 10, 10));
+            pane.setViewportBorder(new EmptyBorder(10, 10, 10, 0));
             //Makes sure only one row can be selected at a time
             table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
             getContentPane().add(pane, BorderLayout.CENTER);
@@ -129,6 +129,7 @@ public class GUI extends JFrame {
 		fillBottomComboboxes();
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private FlowLayout topPanel(JPanel topPanel) {
 		JLabel lblSort = new JLabel("Sort: ");
 		JComboBox inputSort = new JComboBox(SqlColumn.values());
@@ -245,14 +246,11 @@ public class GUI extends JFrame {
 	 * and database when the button "update" is pressed
 	 */
 	private void updateFlight() { 
-		//TODO fix the set values on airline and destination
         //Updates the values on the JTable
         int i = table.getSelectedRow();
-        table.setValueAt(inputAirline.getSelectedItem(), i, 0);
-        //System.out.println(row.idToAirline(inputAirline.getSelectedItem()));
+        table.setValueAt(row.idToAirline((String) inputAirline.getSelectedItem()), i, 0);
         table.setValueAt(inputNumber.getText(), i, 1);
-        table.setValueAt(row.destinationToId(inputAirport.getSelectedItem()), i, 2);
-        System.out.println(row.destinationToId(inputAirport.getSelectedItem()));
+        table.setValueAt(row.idToDestination((String) (inputAirport.getSelectedItem())), i, 2);
         table.setValueAt(inputStatus.getSelectedItem(), i, 3);
         table.setValueAt(inputGate.getSelectedItem(), i, 4);
         table.setValueAt(inputDate.getText(), i, 5);
@@ -264,6 +262,7 @@ public class GUI extends JFrame {
                 + "', Date = '" + inputDate.getText() + "', Time = '" + inputTime.getText() + "', Duration = " 
                 + inputDuration.getText()  
                 +" WHERE Number = " + inputNumber.getText();
+        //TODO
         System.out.println(update);
 		try (Connection connection = DriverManager.getConnection(databaseURL);
 				PreparedStatement statement = connection.prepareStatement(update)) {
@@ -318,14 +317,8 @@ public class GUI extends JFrame {
                      inputDate.setText(dateBox.toString());
                      inputTime.setText(timeBox.toString());
                      inputDuration.setText(durationBox.toString());
-                     
-                     System.out.println(row.statusToId(inputStatus.getSelectedItem()));
-                     
-                     
                      //TODO showing the output in the console for testing
                      System.out.println(row.toString());
-                     
-            		
             	}
             });
             tableModel = (DefaultTableModel) table.getModel();

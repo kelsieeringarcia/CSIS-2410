@@ -123,9 +123,14 @@ public class Row {
 		return id;
 	}
 	
-	public String idToAirline(Object object) {
+	/**
+	 * Takes AirlineId and prints out AirlineName
+	 * @param temp
+	 * @return airline name
+	 */
+	public String idToAirline(String temp) {
 		String id = "";
-		switch(col1) {
+		switch(temp) {
 			case "AA":
 				id = "American";
 				break;
@@ -230,6 +235,76 @@ public class Row {
 				break;
 			case "Shanghai":
 				id = "ZSPD";
+				break;
+		}
+		return id;
+	}
+	
+	public String idToDestination(String temp) {
+		String id = "";
+		switch(temp) {
+			case "EGLL":
+				id = "London";
+				break;
+			case "EHAM":
+				id = "Amsterdam";
+				break;
+			case "KATL":
+				id = "Atlanta";
+				break;
+			case "KBOS":
+				id = "Boston";
+				break;
+			case "KDEN":
+				id = "Denver";
+				break;
+			case "KDFW":
+				id = "Dallas";
+				break;
+			case "KJFK":
+				id = "New York";
+				break;
+			case "KLAS":
+				id = "Las Vegas";
+				break;
+			case "KLAX":
+				id = "Los Angeles";
+				break;
+			case "KMIA":
+				id = "Miami";
+				break;
+			case "KORD":
+				id = "Chicago";
+				break;
+			case "KPDX":
+				id = "Portland";
+				break;
+			case "KPHX":
+				id = "Phoenix";
+				break;
+			case "KSEA":
+				id = "Seattle";
+				break;
+			case "KSFO":
+				id = "San Francisco";
+				break;
+			case "KSLC":
+				id = "Salt Lake";
+				break;
+			case "LFPG":
+				id = "Paris";
+				break;
+			case "RJAA":
+				id = "Tokyo1";
+				break;
+			case "RJTT":
+				id = "Tokyo2";
+				break;
+			case "VHHH":
+				id = "Hong Kong";
+				break;
+			case "ZSPD":
+				id = "Shanghai";
 				break;
 		}
 		return id;

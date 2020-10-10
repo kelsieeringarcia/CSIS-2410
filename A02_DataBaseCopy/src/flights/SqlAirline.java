@@ -1,5 +1,7 @@
 package flights;
 
+
+
 public class SqlAirline {
 
     public static String dropTable() {
@@ -37,5 +39,22 @@ public class SqlAirline {
         return
                 "SELECT * "
                 + "FROM Airline";
+    }
+
+    public static String getId(String airlineName) {
+        String id = switch (airlineName) {
+            case "American" -> "AA";
+            case "Air France" -> "AF";
+            case "Alaska" -> "AS";
+            case "British" -> "BA";
+            case "Delta" -> "DL";
+            case "Japan" -> "JL";
+            case "Royal Dutch" -> "KL";
+            case "All Nippon" -> "NH";
+            case "United" -> "UA";
+            case "Southwest" -> "WN";
+            default -> "";
+        };
+        return id;
     }
 }

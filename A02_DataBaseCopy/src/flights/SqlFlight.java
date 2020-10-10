@@ -57,7 +57,6 @@ public class SqlFlight {
                 + "('KL', 8230, 'VHHH', 0, 'A03', 'Sep 20', '05:30', 240), "
                 + "('KL', 9966, 'ZSPD', 2, 'A04', 'Sep 01', '00:00', 210), "
                 + "('NH', 3135, 'RJAA', 0, 'A02', 'Oct 10', '03:45', 60), "
-                + "('NH', 4299, 'RJTT', 0, 'C05', 'Oct 04', '24:45', 330), "
                 + "('UA', 3451, 'KDFW', 3, 'C01', 'Sep 22', '12:15', 340), "
                 + "('UA', 5360, 'KBOS', 3, 'C05', 'Sep 12', '12:45', 280), "
                 + "('UA', 5440, 'KDEN', 2, 'C01', 'Oct 05', '15:30', 170), "
@@ -95,28 +94,16 @@ public class SqlFlight {
     /**
      * This query will update the selected row in the database.
      */
-//    public static String updateFlight(
-//            String airlineId, int number, String airportId, int status,
-//            String gate, String date, String time, int duration) {
-//
-//        return
-//                "UPDATE Flight "
-//                + "SET AirlineId = '" + airlineId + "', Destination = '" + airportId 
-//                + "', Status = '" + status + "', Gate = '" + gate + "', Date = '" + date + "', Time = '" 
-//                + time + "', Duration = '" + duration  
-//                +"WHERE Number = '" + number +"' ";
-//    }
-    
     public static String updateFlight(
-            String airlineId, int number, String airportId, int status,
-            String gate, String date, String time, int duration) {
+            int flightId, String airlineId, int number, String airportId,
+            int status, String gate, String date, String time, int duration) {
 
         return
                 "UPDATE Flight "
-                + "SET 'AirlineId' = '" + airlineId + "', 'Destination' = '" + airportId 
-                + "', 'Status' = " + status + ", 'Gate' = '" + gate + "', 'Date' = '" + date + "', 'Time' = '" 
-                + time + "', 'Duration' = " + duration +" " 
-                +"WHERE 'Number' = " + number;
+                + "SET Airline = '" + airlineId + "', Number = " + number + ", Destination = '" + airportId
+                + "', Status = " + status + ", Gate = '" + gate + "', Date = '" + date + "', Time = '"
+                + time + "', Duration = " + duration + " "
+                +"WHERE Flight.Id = " + flightId;
     }
 
     /**
@@ -124,31 +111,31 @@ public class SqlFlight {
      * @param column An enum that matches a column name of the flight table
      * @return A Sql String that returns a sorted table of flights
      */
-    public static String getAllSorted(SqlColumn column) {
+    public static String getAllSorted(String column) {
         return
                 "SELECT * "
                 + "FROM Flight "
-                + "ORDER BY " + column.getColumn() + ", Airline, Number, Destination, Status";
+                + "ORDER BY " + column + ", Airline, Number, Destination, Status";
     }
 
     /**
      * Find all flights and sort them by a specified column
      * Replaces AirportId, AirlineId, and Status Code with descriptive names
      *
-     * @param column a Sql Table column name
+     * @param sortColumn a Sql Table column name
      * @return A Sql String that returns a sorted table of flights
      */
-    public static String getAllSortedWithNames(SqlColumn column) {
+    public static String getAllSortedWithNames(String sortColumn) {
         return
                 "SELECT "
-                + "Airline.Name, Flight.Number, Airport.City, "
+                + "Flight.Id, Airline.Name, Flight.Number, Airport.City, "
                 + "Status.Description, Flight.Gate, "
                 + "Flight.Date, Flight.Time, Flight.Duration "
                 + "FROM Flight "
                 + "INNER JOIN Airport ON Flight.Destination=Airport.Id "
                 + "INNER JOIN Status ON Flight.Status=Status.Id "
                 + "INNER JOIN Airline ON Flight.Airline=Airline.Id "
-                + "ORDER BY " + column.getColumn() + ", Flight.Airline, Flight.Number";
+                + "ORDER BY " + sortColumn + ", Flight.Airline, Flight.Number";
     }
 
     /**
@@ -159,11 +146,17 @@ public class SqlFlight {
      * @param searchQuery a string to search for
      * @return a SQL string that returns a filtered table of flights
      */
-    public static String getAllMatchingColumn(SqlColumn column ,String searchQuery) {
+    public static String getAllMatching(String column ,String searchQuery) {
         return
-                "SELECT * "
+                "SELECT "
+                + "Flight.Id, Airline.Name, Flight.Number, Airport.City, "
+                + "Status.Description, Flight.Gate, "
+                + "Flight.Date, Flight.Time, Flight.Duration "
                 + "FROM Flight "
-                + "WHERE " + column.getColumn() + " = '" + searchQuery + "'";
+                + "INNER JOIN Airport ON Flight.Destination=Airport.Id "
+                + "INNER JOIN Status ON Flight.Status=Status.Id "
+                + "INNER JOIN Airline ON Flight.Airline=Airline.Id "
+                + "WHERE " + column + " LIKE '%" + searchQuery + "%'";
     }
 
     /**

@@ -40,8 +40,7 @@ public class SqlAirport {
                 + "('KSFO', 'San Francisco International Airport', 'San Francisco', 'United States'), "
                 + "('KSLC', 'Salt Lake City International', 'Salt Lake', 'United States'), "
                 + "('LFPG', 'Paris Charles de Gaulle Airport', 'Paris', 'France'), "
-                + "('RJAA', 'Tokyo Narita International Airport', 'Tokyo1', 'Japan'), "
-                + "('RJTT', 'Tokyo Haneda Airport', 'Tokyo2', 'Japan'), "
+                + "('RJAA', 'Tokyo Narita International Airport', 'Tokyo', 'Japan'), "
                 + "('VHHH', 'Hong Kong International Airport', 'Hong Kong', 'Hong Kong'), "
                 + "('ZSPD', 'Shanghai Pudong International Airport', 'Shanghai', 'China')";
     }
@@ -51,4 +50,32 @@ public class SqlAirport {
                 "SELECT * "
                 + "FROM Airport";
     }
+
+    public static String getId(String airportCity) {
+        String airportId = switch (airportCity) {
+            case "Amsterdam" -> "EHAM";
+            case "Atlanta" -> "KATL";
+            case "Boston" -> "KBOS";
+            case "Denver" -> "KDEN";
+            case "Dallas" -> "KDFW";
+            case "New York" -> "KJFK";
+            case "Las Vegas" -> "KLAS";
+            case "Los Angeles" -> "KLAX";
+            case "Miami" -> "KMIA";
+            case "Chicago" -> "KORD";
+            case "Portland" -> "KPDX";
+            case "Phoenix" -> "KPHX";
+            case "Seattle" -> "KSEA";
+            case "San Francisco" -> "KSFO";
+            case "Salt Lake" -> "KSLC";
+            case "London" -> "EGLL";
+            case "Paris" -> "LFPG";
+            case "Tokyo" -> "RJAA";
+            case "Hong Kong" -> "VHHH";
+            case "Shanghai" -> "ZSPD";
+            default -> "";
+        };
+        return airportId;
+    }
+
 }

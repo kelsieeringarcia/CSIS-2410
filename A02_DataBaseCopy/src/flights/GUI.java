@@ -1,19 +1,20 @@
 package flights;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.*;
 import java.text.NumberFormat;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.border.LineBorder;
-import javax.swing.border.EmptyBorder;
+
 /**
- * 
+ * Gui class for our Flight Database.
  * @author Kelsie Garcia and Aiden Van Dyke
  *
  */
+@SuppressWarnings("serial")
 public class GUI extends JFrame {
     // SQL Connection
     private static final String databaseURL =
@@ -25,8 +26,6 @@ public class GUI extends JFrame {
 
     private JTable table;
     private DefaultTableModel tableModel;
-
-    private String[] columnNames;
 
     private JComboBox<String> inputSort;
     private JComboBox<String> inputAirline;
@@ -60,12 +59,13 @@ public class GUI extends JFrame {
         });
     }
 
-    GUI() {
+    @SuppressWarnings("unused")
+	GUI() {
     	try (Connection connection = DriverManager.getConnection("jdbc:derby:FlightsDB;create=true");
                 Statement statement = connection.createStatement()) {
 
            // Reset data in between testing
-           //SqlGeneric.resetTables();
+           SqlGeneric.resetTables();
 
            // Window
            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,6 +77,7 @@ public class GUI extends JFrame {
            createPanelTop();
            createJTable();
            JScrollPane pane = new JScrollPane(table);
+           pane.setBorder(new EmptyBorder(10,10,10,0));
            // Makes sure only one row can be selected at a time
            table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
            this.add(pane, BorderLayout.CENTER);
@@ -88,41 +89,11 @@ public class GUI extends JFrame {
        catch (SQLException e) {
            e.printStackTrace();
        }
-//        try (Connection connection = DriverManager.getConnection("jdbc:derby:FlightsDB;create=true");
-//             Statement statement = connection.createStatement()) {
-//
-//            // Reset data in between testing
-//            SqlGeneric.resetTables();
-//
-//
-//            // Window
-//            getContentPane().setLayout(new BorderLayout());
-//            JPanel topPanel = new JPanel(new BorderLayout());
-//            JPanel bottomPanel = new JPanel(new BorderLayout());
-//
-//            // Top Panel
-//            
-//            FlowLayout flowLayout = createPanelTop();
-//
-//            // Table
-//            createJTable();
-//            JScrollPane pane = new JScrollPane(table);
-//            pane.setViewportBorder(new EmptyBorder(10, 10, 10, 0));
-//            //Makes sure only one row can be selected at a time
-//            table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-//            getContentPane().add(pane, BorderLayout.CENTER);
-//           
-//            
-//
-//            // Bottom
-//            bottomPanel(bottomPanel, flowLayout);
-//            this.pack();
-//        }
-//        catch (SQLException e) {
-//            e.printStackTrace();
-//        }
     }
 
+    /**
+     * Bottom panel
+     */
 	private void createPanelBottom() {
 		 panelBottom = new JPanel(new FlowLayout());
 	        panelBottom.setBackground(Color.CYAN);
@@ -171,6 +142,10 @@ public class GUI extends JFrame {
 			fillBottomComboboxes();
 	}
 
+	/**
+	 * Top panel
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void createPanelTop() {
         panelTop = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panelTop.setBackground(Color.CYAN);
@@ -247,31 +222,18 @@ public class GUI extends JFrame {
     
 
     private void addFlight() {
-        // Get input values
-        String airlineId = SqlAirline.getId(String.valueOf(inputAirline.getSelectedItem()));
-        int number = Integer.parseInt(inputNumber.getText());
-        String airportId = SqlAirport.getId(String.valueOf(inputAirport.getSelectedItem()));
-        int status = SqlStatus.getId(inputStatus.getSelectedItem().toString());
-        String gate = String.valueOf(inputGate.getSelectedItem());
-        String date = String.valueOf(inputDate.getText());
-        String time = String.valueOf(inputTime.getText());
-        int duration = Integer.parseInt(inputDuration.getText());
-        
+        //Plugging into the prepared statement
         String update =  "INSERT INTO Flight (Airline, Number, Destination, Status, Gate, Date, Time, Duration) "
                 + "VALUES ('" + inputAirline.getSelectedItem() + "', " + inputNumber.getText() + ", '" 
         		+ inputAirport.getSelectedItem() + "', " + SqlStatus.getId((String) inputStatus.getSelectedItem())
         		+ ", '" + inputGate.getSelectedItem() + "', '" + inputDate.getText() + "', '" + inputTime.getText() + "', " + inputDuration.getText() +")";
         
-
-        // Update database
-//        try (Connection connection = DriverManager.getConnection(databaseURL);
-//                Statement statement = connection.createStatement()) {
-//
-//            statement.executeUpdate(SqlFlight.insertValue(airlineId, number, airportId, status, gate, date, time, duration));
         try (Connection connection = DriverManager.getConnection(databaseURL);
 				PreparedStatement statement = connection.prepareStatement(update)) {
 			statement.executeUpdate();
 			connection.close();
+	        // Confirmation dialog
+	        JOptionPane.showMessageDialog(null,"Flight added successfully.");
         } catch (SQLException e) {
             System.err.println("There was a problem adding the flight.");
             e.printStackTrace();
@@ -279,32 +241,26 @@ public class GUI extends JFrame {
 
         // Refresh the table display
         sortJPanel();
-
-        // Confirmation dialog
-        JOptionPane.showMessageDialog(null,"Flight added successfully.");
     }
     /**
      * This takes what is selected from the JTable and deletes the flight selected
      * from the table and the database
      */
 	private void removeFlight() {
-		int number = Integer.parseInt(inputNumber.getText());
 		// check for selected row first
 		if (table.getSelectedRow() != -1) {
 			// remove selected row from the model
 			tableModel.removeRow(table.getSelectedRow());
-			JOptionPane.showMessageDialog(null, "Selected row deleted successfully");
 		}
 		String update = "DELETE "
     			+"FROM Flight "
     			+ "WHERE Flight.Id = " + selectedFlightId;
-//		try (Connection connection = DriverManager.getConnection(databaseURL);
-//				Statement statement = connection.createStatement()) {
-//			 statement.execute(SqlFlight.removeFlightWhere(number));
 		try (Connection connection = DriverManager.getConnection(databaseURL);
 				PreparedStatement statement = connection.prepareStatement(update)) {
 			statement.executeUpdate();
 			connection.close();
+			//confirmation dialog
+			JOptionPane.showMessageDialog(null, "Selected row deleted successfully");
 		} catch (SQLException e) {
 			System.err.println("There was a problem deleting the flight.");
 			e.printStackTrace();
@@ -326,74 +282,32 @@ public class GUI extends JFrame {
         table.setValueAt(inputDate.getText(), i, 6);
         table.setValueAt(inputTime.getText(), i, 7);
         table.setValueAt(inputDuration.getText(), i, 8);
+        //Plugging into prepared statement
         String update = "UPDATE Flight "
         	  + "SET Airline = '" + inputAirline.getSelectedItem() + "', Number = " + inputNumber.getText() + ", Destination = '" + inputAirport.getSelectedItem()
         	  + "', Status = " + SqlStatus.getId((String) inputStatus.getSelectedItem()) + ", Gate = '" + inputGate.getSelectedItem() 
         	  + "', Date = '" + inputDate.getText() + "', Time = '" + inputTime.getText() + "', Duration = " 
         	  + inputDuration.getText()  
         	  +" WHERE Flight.Id = " + selectedFlightId;
-        	        //TODO
-        	        System.out.println(update);
         			try (Connection connection = DriverManager.getConnection(databaseURL);
         					PreparedStatement statement = connection.prepareStatement(update)) {
         				statement.executeUpdate();
         				connection.close();
+        		        // Confirmation dialog
+        		        JOptionPane.showMessageDialog(null,"Flight updated successfully.");
         			} catch (SQLException e) {
         				System.err.println("There was a problem updating the flight.");
         				e.printStackTrace();
         			}
-        
-//        // Get input values
-//        String airlineId = SqlAirline.getId(String.valueOf(inputAirline.getSelectedItem()));
-//        int number = Integer.parseInt(inputNumber.getText());
-//        String airportId = SqlAirport.getId(String.valueOf(inputAirport.getSelectedItem()));
-//        int status = SqlStatus.getId(inputStatus.getSelectedItem().toString());
-//        String gate = String.valueOf(inputGate.getSelectedItem());
-//        String date = String.valueOf(inputDate.getText());
-//        String time = String.valueOf(inputTime.getText());
-//        int duration = Integer.parseInt(inputDuration.getText());
-//        // Update database
-//        try (Connection connection = DriverManager.getConnection(databaseURL);
-//                Statement statement = connection.createStatement()) {
-//
-//            statement.execute(SqlFlight.updateFlight(selectedFlightId, airlineId, number, airportId, status, gate, date, time, duration));
-//        } catch (SQLException e) {
-//            System.err.println("There was a problem updating the flight.");
-//            e.printStackTrace();
-//        }
 
         // Refresh the table display
         sortJPanel();
 
-        // Confirmation dialog
-        JOptionPane.showMessageDialog(null,"Flight updated successfully.");
     }
-//        String update = "UPDATE Flight "
-//                + "SET Airline = '" + inputAirline.getSelectedItem() + "', Destination = '" + inputAirport.getSelectedItem()
-//                + "', Status = " + row.statusToId(inputStatus.getSelectedItem()) + ", Gate = '" + inputGate.getSelectedItem() 
-//                + "', Date = '" + inputDate.getText() + "', Time = '" + inputTime.getText() + "', Duration = " 
-//                + inputDuration.getText()  
-//                +" WHERE Number = " + inputNumber.getText();
-	
-//  String update = "UPDATE Flight "
-//  + "SET Airline = '" + inputAirline.getSelectedItem() + Number = " + inputNumber.getText() + "', Destination = '" + inputAirport.getSelectedItem()
-//  + "', Status = " + row.statusToId(inputStatus.getSelectedItem()) + ", Gate = '" + inputGate.getSelectedItem() 
-//  + "', Date = '" + inputDate.getText() + "', Time = '" + inputTime.getText() + "', Duration = " 
-//  + inputDuration.getText()  
-//  +" WHERE Flight.Id = " + selectedFlightId;
-//        //TODO
-//        System.out.println(update);
-//		try (Connection connection = DriverManager.getConnection(databaseURL);
-//				PreparedStatement statement = connection.prepareStatement(update)) {
-//			statement.executeUpdate();
-//			connection.close();
-//		} catch (SQLException e) {
-//			System.err.println("There was a problem updating the flight.");
-//			e.printStackTrace();
-//		}
-        
-		
-	
+       	
+	/**
+	 * Creates the JTable with the original data
+	 */
     private void createJTable() {
         try (Connection connection = DriverManager.getConnection(databaseURL);
              Statement statement = connection.createStatement()) {
@@ -440,69 +354,10 @@ public class GUI extends JFrame {
         }
     }
 
-//    private void createJTable() {
-//        try (Connection connection = DriverManager.getConnection(databaseURL);
-//             Statement statement = connection.createStatement()) {
-//
-//            ResultSet rs = statement.executeQuery(SqlFlight.getAllSortedWithNames(SqlColumn.AIRLINE_NAME));
-//            ResultSetMetaData rsmd = rs.getMetaData();
-//
-//            Object[] columnLabels;
-//            int colNo = rsmd.getColumnCount();
-//            columnLabels = new Object[colNo];
-//            for (int i = 0; i < colNo; i++) {
-//                columnLabels[i] = rsmd.getColumnLabel(i + 1);
-//                
-//            }
-//
-//            table = new JTable(new DefaultTableModel(columnLabels, 0));
-//            table.addMouseListener(new MouseAdapter() {
-//            	@Override
-//            	public void mouseClicked(MouseEvent e) {
-//            		 currentRow = table.getSelectedRow();
-//            		 
-//                     Object airlineIdBox = tableModel.getValueAt(currentRow, 0);
-//                     Object flightNumBox = tableModel.getValueAt(currentRow, 1);
-//                     Object destinationBox = tableModel.getValueAt(currentRow, 2);
-//                     Object statusBox = tableModel.getValueAt(currentRow, 3);
-//                     Object gateBox = tableModel.getValueAt(currentRow, 4);
-//                     Object dateBox = tableModel.getValueAt(currentRow, 5);
-//                     Object timeBox = tableModel.getValueAt(currentRow, 6);
-//                     Object durationBox = tableModel.getValueAt(currentRow, 7);
-//                     //Constructs a row of data together
-//                     row = new Row(airlineIdBox.toString(), flightNumBox.toString(), destinationBox.toString(), statusBox.toString(), 
-//                    		 gateBox.toString(), dateBox.toString(), timeBox.toString(), durationBox.toString());
-//                     //This updates the JComboBoxes with the data selected on the table
-//                     inputAirline.setSelectedItem(row.airlineToId());
-//                     inputNumber.setText(flightNumBox.toString());
-//                     inputAirport.setSelectedItem(row.destinationToId());
-//                     inputStatus.setSelectedItem(statusBox);
-//                     inputGate.setSelectedItem(gateBox);
-//                     inputDate.setText(dateBox.toString());
-//                     inputTime.setText(timeBox.toString());
-//                     inputDuration.setText(durationBox.toString());
-//                     //TODO showing the output in the console for testing
-//                     System.out.println(row.toString());
-//            	}
-//            });
-//            tableModel = (DefaultTableModel) table.getModel();
-//
-//            while (rs.next()) {
-//                Object[] objects = new Object[colNo];
-//                for (int i = 0; i < colNo; i++) {
-//                    objects[i] = rs.getObject(i + 1); // SQL is indexes start at 1
-//                }
-//                tableModel.addRow(objects);
-//            }
-//            table.setModel(tableModel);
-//        }
-//        catch (SQLException e){
-//            System.err.println("There was a problem updating the JTable.");
-//            e.printStackTrace();
-//        }
-//    }
-    
-
+    /**
+     * Updates JTable after every action
+     * @param sqlQuery
+     */
     private void updateJTable(String sqlQuery) {
         try (Connection connection = DriverManager.getConnection(databaseURL);
              Statement statement = connection.createStatement()) {
@@ -548,7 +403,8 @@ public class GUI extends JFrame {
         }
     }
     
-    private void sortJPanel() {
+    @SuppressWarnings("preview")
+	private void sortJPanel() {
         // Get right column to sort by
         String columnName = switch (inputSort.getSelectedItem().toString()) {
             case "Flight Number" -> "Flight.Number";
@@ -563,7 +419,8 @@ public class GUI extends JFrame {
         updateJTable(SqlFlight.getAllSortedWithNames(columnName));
     }
 
-    private void searchJPanel() {
+    @SuppressWarnings("preview")
+	private void searchJPanel() {
         String columnName = switch (inputSearchColumn.getSelectedItem().toString()) {
             case "City" -> "Airport.City";
             case "Status" -> "Status.Description";
@@ -579,9 +436,6 @@ public class GUI extends JFrame {
         //This updates the JComboBoxes with the data selected on the table
         currentRow = table.getSelectedRow();
         selectedFlightId = Integer.parseInt(tableModel.getValueAt(currentRow, 0).toString());
-        System.out.println(selectedFlightId);
-        int temp = selectedFlightId;
-        System.out.println(temp);
         inputAirline.setSelectedItem(SqlAirline.getId(tableModel.getValueAt(currentRow, 1).toString()));
         inputNumber.setText(tableModel.getValueAt(currentRow, 2).toString());
         inputAirport.setSelectedItem(SqlAirport.getId(tableModel.getValueAt(currentRow,3).toString()));

@@ -1,11 +1,24 @@
 package flights;
 
+/**
+ * SQL queries for the Airport table
+ *@author Kelsie Garcia and Aiden Van Dyke
+ *
+ */
 public class SqlAirport {
 
+	/**
+	 * Drops Airport table.
+	 * @return SQL statement
+	 */
     public static String dropTable() {
         return "DROP TABLE Airport";
     }
 
+    /**
+     * Creates the Airport table.
+     * @return SQL statement
+     */
     public static String createTable() {
         return
                 "CREATE TABLE Airport ("
@@ -15,11 +28,19 @@ public class SqlAirport {
                 + "Country varchar(255))";
     }
 
+    /**
+     * Removes from Airport table.
+     * @return SQL statement
+     */
     public static String removeData() {
         return
                 "DELETE FROM Airport";
     }
 
+    /**
+     * Inserts data into Airport table.
+     * @return SQL statement
+     */
     public static String insertData() {
         return
                 "INSERT INTO Airport (Id, Name, City, Country) "
@@ -45,13 +66,23 @@ public class SqlAirport {
                 + "('ZSPD', 'Shanghai Pudong International Airport', 'Shanghai', 'China')";
     }
 
+    /**
+     * Selects all from Airport table.
+     * @return SQL statement
+     */
     public static String getAll() {
         return
                 "SELECT * "
                 + "FROM Airport";
     }
 
-    public static String getId(String airportCity) {
+    /**
+     * Takes the AirportCity and turns it to the AirportId
+     * @param airportCity
+     * @return AirportId
+     */
+    @SuppressWarnings("preview")
+	public static String getId(String airportCity) {
         String airportId = switch (airportCity) {
             case "Amsterdam" -> "EHAM";
             case "Atlanta" -> "KATL";

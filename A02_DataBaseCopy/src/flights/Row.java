@@ -80,6 +80,86 @@ public class Row {
 		}
 		return id;
 	}
+	/**
+	 * Changes the Airline name to Id to fit in query
+	 * @param Object of the selected item.
+	 * @return AirlineId
+	 */
+	public String airlineToId(Object object) {
+		String id = "";
+		switch(col1) {
+			case "American":
+				id = "AA";
+				break;
+			case "Air France":
+				id = "AF";
+				break;
+			case "Alaska":
+				id = "AS";
+				break;
+			case "British":
+				id = "BA";
+				break;
+			case "Delta":
+				id = "DL";
+				break;
+			case "Japan":
+				id = "Jl";
+				break;
+			case "Royal Dutch":
+				id = "KL";
+				break;
+			case "All Nippon":
+				id = "NH";
+				break;
+			case "United":
+				id = "UA";
+				break;
+			case "Southwest":
+				id = "WN";
+				break;
+				
+		}
+		return id;
+	}
+	
+	public String idToAirline(Object object) {
+		String id = "";
+		switch(col1) {
+			case "AA":
+				id = "American";
+				break;
+			case "AF":
+				id = "Air France";
+				break;
+			case "AS":
+				id = "Alaska";
+				break;
+			case "BA":
+				id = "British";
+				break;
+			case "DL":
+				id = "Delta";
+				break;
+			case "Jl":
+				id = "Japan";
+				break;
+			case "KL":
+				id = "Royal Dutch";
+				break;
+			case "NH":
+				id = "All Nippon";
+				break;
+			case "UA":
+				id = "United";
+				break;
+			case "WN":
+				id = "Southwest";
+				break;
+				
+		}
+		return id;
+	}
 	
 	/**
 	 * Changes the destination from the JTable to the id to fit in a query.
@@ -153,6 +233,99 @@ public class Row {
 				break;
 		}
 		return id;
+	}
+	
+	/**
+	 * Changes the destination from the JTable to the id to fit in a query.
+	 * @return AirportId
+	 */
+	public String destinationToId(Object object) {
+		String id = "";
+		switch(col3) {
+			case "London":
+				id = "EGLL";
+				break;
+			case "Amsterdam":
+				id = "EHAM";
+				break;
+			case "Atlanta":
+				id = "KATL";
+				break;
+			case "Boston":
+				id = "KBOS";
+				break;
+			case "Denver":
+				id = "KDEN";
+				break;
+			case "Dallas":
+				id = "KDFW";
+				break;
+			case "New York":
+				id = "KJFK";
+				break;
+			case "Las Vegas":
+				id = "KLAS";
+				break;
+			case "Los Angeles":
+				id = "KLAX";
+				break;
+			case "Miami":
+				id = "KMIA";
+				break;
+			case "Chicago":
+				id = "KORD";
+				break;
+			case "Portland":
+				id = "KPDX";
+				break;
+			case "Phoenix":
+				id = "KPHX";
+				break;
+			case "Seattle":
+				id = "KSEA";
+				break;
+			case "San Francisco":
+				id = "KSFO";
+				break;
+			case "Salt Lake":
+				id = "KSLC";
+				break;
+			case "Paris":
+				id = "LFPG";
+				break;
+			case "Tokyo1":
+				id = "RJAA";
+				break;
+			case "Tokyo2":
+				id = "RJTT";
+				break;
+			case "Hong Kong":
+				id = "VHHH";
+				break;
+			case "Shanghai":
+				id = "ZSPD";
+				break;
+		}
+		return id;
+	}
+	public int statusToId(Object object) {
+		int status = 0;
+		switch(col4) {
+		case "On time":
+			status = 0;
+			break;
+		case "Now Boarding":
+			status = 1;
+			break;
+		case "Delayed":
+			status = 2;
+			break;
+		case "Canceled":
+			status = 3;
+			break;
+		}
+		
+		return status;
 	}
 
 	public String getCol1() {

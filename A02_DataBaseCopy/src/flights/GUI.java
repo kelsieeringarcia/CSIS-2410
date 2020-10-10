@@ -7,6 +7,8 @@ import java.sql.*;
 import java.text.NumberFormat;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.border.LineBorder;
+import javax.swing.border.EmptyBorder;
 /**
  * 
  * @author Kelsie Garcia and Aiden Van Dyke
@@ -67,6 +69,7 @@ public class GUI extends JFrame {
             // Table
             createJTable();
             JScrollPane pane = new JScrollPane(table);
+            pane.setViewportBorder(new EmptyBorder(10, 15, 10, 10));
             //Makes sure only one row can be selected at a time
             table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
             getContentPane().add(pane, BorderLayout.CENTER);
@@ -131,11 +134,9 @@ public class GUI extends JFrame {
 		JComboBox inputSort = new JComboBox(SqlColumn.values());
 		JButton btnSort = new JButton("Sort");
 		JTextField searchbar = new JTextField();
-		// TODO replace with table names
 		JLabel lblSearch = new JLabel("Search: ");
 		JComboBox comboColumn = new JComboBox(SqlColumn.values());
-		JComboBox comboTable = new JComboBox(new String[]{"Flight Table"});
-		searchbar.setPreferredSize(new Dimension(260,26));
+		searchbar.setPreferredSize(new Dimension(300,26));
 		JButton btnSearch = new JButton("Search");
 		getContentPane().add(topPanel, BorderLayout.NORTH);
 		topPanel.setBackground(Color.CYAN);
@@ -148,7 +149,6 @@ public class GUI extends JFrame {
 		topPanel.add(btnSort);
 		//Search portion
 		topPanel.add(lblSearch);
-		topPanel.add(comboTable);
 		topPanel.add(comboColumn);
 		topPanel.add(searchbar);
 		topPanel.add(btnSearch);
@@ -244,42 +244,31 @@ public class GUI extends JFrame {
 	 * This method takes the current selected flight on the JTable and updates the fields
 	 * and database when the button "update" is pressed
 	 */
-	private void updateFlight() {
-		String airlineId = String.valueOf(inputAirline.getSelectedItem());
-        int number = Integer.parseInt(inputNumber.getText());
-        String airportId = String.valueOf(inputAirport.getSelectedItem());
-        String statusString = String.valueOf(inputStatus.getSelectedItem());
-        int status = 0;
-        if (statusString.equals("Now Boarding"))
-            status = 1;
-        if (statusString.equals("Delayed"))
-            status = 2;
-        if (statusString.equals("Canceled"))
-            status = 3;
-        // Else status defaults to 0 which equals "On Time" status
-        String gate = String.valueOf(inputGate.getSelectedItem());
-        String date = String.valueOf(inputDate.getText());
-        String time = String.valueOf(inputTime.getText());
-        int duration = Integer.parseInt(inputDuration.getText());
-        
+	private void updateFlight() { 
+		//TODO fix the set values on airline and destination
         //Updates the values on the JTable
         int i = table.getSelectedRow();
         table.setValueAt(inputAirline.getSelectedItem(), i, 0);
+        //System.out.println(row.idToAirline(inputAirline.getSelectedItem()));
         table.setValueAt(inputNumber.getText(), i, 1);
-        table.setValueAt(inputAirport.getSelectedItem(), i, 2);
+        table.setValueAt(row.destinationToId(inputAirport.getSelectedItem()), i, 2);
+        System.out.println(row.destinationToId(inputAirport.getSelectedItem()));
         table.setValueAt(inputStatus.getSelectedItem(), i, 3);
         table.setValueAt(inputGate.getSelectedItem(), i, 4);
         table.setValueAt(inputDate.getText(), i, 5);
         table.setValueAt(inputTime.getText(), i, 6);
         table.setValueAt(inputDuration.getText(), i, 7);
-        
-		//TODO Fix the query or the data being put in the query
+        String update = "UPDATE Flight "
+                + "SET Airline = '" + inputAirline.getSelectedItem() + "', Destination = '" + inputAirport.getSelectedItem()
+                + "', Status = " + row.statusToId(inputStatus.getSelectedItem()) + ", Gate = '" + inputGate.getSelectedItem() 
+                + "', Date = '" + inputDate.getText() + "', Time = '" + inputTime.getText() + "', Duration = " 
+                + inputDuration.getText()  
+                +" WHERE Number = " + inputNumber.getText();
+        System.out.println(update);
 		try (Connection connection = DriverManager.getConnection(databaseURL);
-				Statement statement = connection.createStatement()) {
-			 //statement.execute(SqlFlight.updateFlight(airlineId, number, airportId, status, gate, date, time, duration));
-			System.out.println(airlineId + " " + number + " " + airportId + " " + status + " " 
-			+ gate + " " + date + " " + time + " " + duration);
-			//updateJTable();
+				PreparedStatement statement = connection.prepareStatement(update)) {
+			statement.executeUpdate();
+			connection.close();
 		} catch (SQLException e) {
 			System.err.println("There was a problem updating the flight.");
 			e.printStackTrace();
@@ -329,6 +318,8 @@ public class GUI extends JFrame {
                      inputDate.setText(dateBox.toString());
                      inputTime.setText(timeBox.toString());
                      inputDuration.setText(durationBox.toString());
+                     
+                     System.out.println(row.statusToId(inputStatus.getSelectedItem()));
                      
                      
                      //TODO showing the output in the console for testing

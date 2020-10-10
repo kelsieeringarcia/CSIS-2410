@@ -22,11 +22,11 @@ public class testing {
             //resetTables();
 
             // Print Table
-            //ResultSet resultSet = statement.executeQuery(SqlDeparture.getAll());
+            //ResultSet resultSet = statement.executeQuery(SqlFlight.getAll());
         	//'AA', 1300, 'KSEA', 0, 'A05', 'Sep 14', '03:00', 30
-            ResultSet resultSet = statement.executeQuery(SqlFlight.updateFlight("AA", 1300, "KSEA", 1, "A05"
+            ResultSet resultSet = statement.executeQuery(SqlFlight.updateFlight("American", 1300, "Tokyo1", 1, "B05"
             		, "Sept 14", "03:00", 30));
-            //ResultSet resultSet = statement.executeQuery(SqlDeparture.getAllWithAirlineNames());
+            //ResultSet resultSet = statement.executeQuery(SqlFlight.getAllWithAirlineNames());
             //ResultSet resultSet = statement.executeQuery(SqlDeparture.getAllWithDestination("EGLL"));
             printResults(resultSet);
 

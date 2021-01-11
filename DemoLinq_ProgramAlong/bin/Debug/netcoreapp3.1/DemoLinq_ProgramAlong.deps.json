@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "DemoLinq_ProgramAlong/1.0.0": {
+        "runtime": {
+          "DemoLinq_ProgramAlong.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "DemoLinq_ProgramAlong/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

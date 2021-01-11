@@ -1,0 +1,12 @@
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoLinq_ProgramAlong/bin/Debug/netcoreapp3.1/DemoLinq_ProgramAlong.deps.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoLinq_ProgramAlong/bin/Debug/netcoreapp3.1/DemoLinq_ProgramAlong.runtimeconfig.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoLinq_ProgramAlong/bin/Debug/netcoreapp3.1/DemoLinq_ProgramAlong.runtimeconfig.dev.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoLinq_ProgramAlong/bin/Debug/netcoreapp3.1/DemoLinq_ProgramAlong.dll
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoLinq_ProgramAlong/bin/Debug/netcoreapp3.1/DemoLinq_ProgramAlong.pdb
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoLinq_ProgramAlong/obj/Debug/netcoreapp3.1/DemoLinq_ProgramAlong.csprojAssemblyReference.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoLinq_ProgramAlong/obj/Debug/netcoreapp3.1/DemoLinq_ProgramAlong.AssemblyInfoInputs.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoLinq_ProgramAlong/obj/Debug/netcoreapp3.1/DemoLinq_ProgramAlong.AssemblyInfo.cs
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoLinq_ProgramAlong/obj/Debug/netcoreapp3.1/DemoLinq_ProgramAlong.csproj.CoreCompileInputs.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoLinq_ProgramAlong/obj/Debug/netcoreapp3.1/DemoLinq_ProgramAlong.dll
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoLinq_ProgramAlong/obj/Debug/netcoreapp3.1/DemoLinq_ProgramAlong.pdb
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoLinq_ProgramAlong/obj/Debug/netcoreapp3.1/DemoLinq_ProgramAlong.genruntimeconfig.cache

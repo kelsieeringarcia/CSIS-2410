@@ -1,0 +1,11 @@
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LinkedStack/bin/Debug/netcoreapp3.1/LinkedStack.deps.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LinkedStack/bin/Debug/netcoreapp3.1/LinkedStack.runtimeconfig.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LinkedStack/bin/Debug/netcoreapp3.1/LinkedStack.runtimeconfig.dev.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LinkedStack/bin/Debug/netcoreapp3.1/LinkedStack.dll
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LinkedStack/bin/Debug/netcoreapp3.1/LinkedStack.pdb
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LinkedStack/obj/Debug/netcoreapp3.1/LinkedStack.AssemblyInfoInputs.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LinkedStack/obj/Debug/netcoreapp3.1/LinkedStack.AssemblyInfo.cs
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LinkedStack/obj/Debug/netcoreapp3.1/LinkedStack.csproj.CoreCompileInputs.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LinkedStack/obj/Debug/netcoreapp3.1/LinkedStack.dll
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LinkedStack/obj/Debug/netcoreapp3.1/LinkedStack.pdb
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LinkedStack/obj/Debug/netcoreapp3.1/LinkedStack.genruntimeconfig.cache

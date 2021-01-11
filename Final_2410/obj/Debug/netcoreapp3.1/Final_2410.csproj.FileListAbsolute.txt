@@ -1,0 +1,11 @@
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/Final_2410/bin/Debug/netcoreapp3.1/Final_2410.deps.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/Final_2410/bin/Debug/netcoreapp3.1/Final_2410.runtimeconfig.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/Final_2410/bin/Debug/netcoreapp3.1/Final_2410.runtimeconfig.dev.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/Final_2410/bin/Debug/netcoreapp3.1/Final_2410.dll
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/Final_2410/bin/Debug/netcoreapp3.1/Final_2410.pdb
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/Final_2410/obj/Debug/netcoreapp3.1/Final_2410.AssemblyInfoInputs.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/Final_2410/obj/Debug/netcoreapp3.1/Final_2410.AssemblyInfo.cs
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/Final_2410/obj/Debug/netcoreapp3.1/Final_2410.csproj.CoreCompileInputs.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/Final_2410/obj/Debug/netcoreapp3.1/Final_2410.dll
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/Final_2410/obj/Debug/netcoreapp3.1/Final_2410.pdb
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/Final_2410/obj/Debug/netcoreapp3.1/Final_2410.genruntimeconfig.cache

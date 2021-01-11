@@ -1,0 +1,13 @@
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/FileIO/bin/Debug/netcoreapp3.1/FileIO.deps.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/FileIO/bin/Debug/netcoreapp3.1/FileIO.runtimeconfig.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/FileIO/bin/Debug/netcoreapp3.1/FileIO.runtimeconfig.dev.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/FileIO/bin/Debug/netcoreapp3.1/FileIO.dll
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/FileIO/bin/Debug/netcoreapp3.1/FileIO.pdb
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/FileIO/obj/Debug/netcoreapp3.1/FileIO.csprojAssemblyReference.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/FileIO/obj/Debug/netcoreapp3.1/FileIO.AssemblyInfoInputs.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/FileIO/obj/Debug/netcoreapp3.1/FileIO.AssemblyInfo.cs
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/FileIO/obj/Debug/netcoreapp3.1/FileIO.csproj.CoreCompileInputs.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/FileIO/obj/Debug/netcoreapp3.1/FileIO.dll
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/FileIO/obj/Debug/netcoreapp3.1/FileIO.pdb
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/FileIO/obj/Debug/netcoreapp3.1/FileIO.genruntimeconfig.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/FileIO/bin/Debug/netcoreapp3.1/ResourceFolder/Words.txt

@@ -1,0 +1,12 @@
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoGenerics/bin/Debug/netcoreapp3.1/DemoGenerics.deps.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoGenerics/bin/Debug/netcoreapp3.1/DemoGenerics.runtimeconfig.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoGenerics/bin/Debug/netcoreapp3.1/DemoGenerics.runtimeconfig.dev.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoGenerics/bin/Debug/netcoreapp3.1/DemoGenerics.dll
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoGenerics/bin/Debug/netcoreapp3.1/DemoGenerics.pdb
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoGenerics/obj/Debug/netcoreapp3.1/DemoGenerics.csprojAssemblyReference.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoGenerics/obj/Debug/netcoreapp3.1/DemoGenerics.AssemblyInfoInputs.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoGenerics/obj/Debug/netcoreapp3.1/DemoGenerics.AssemblyInfo.cs
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoGenerics/obj/Debug/netcoreapp3.1/DemoGenerics.csproj.CoreCompileInputs.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoGenerics/obj/Debug/netcoreapp3.1/DemoGenerics.dll
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoGenerics/obj/Debug/netcoreapp3.1/DemoGenerics.pdb
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/DemoGenerics/obj/Debug/netcoreapp3.1/DemoGenerics.genruntimeconfig.cache

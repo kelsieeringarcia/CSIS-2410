@@ -1,0 +1,12 @@
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabCard/bin/Debug/netcoreapp3.1/LabCard.deps.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabCard/bin/Debug/netcoreapp3.1/LabCard.runtimeconfig.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabCard/bin/Debug/netcoreapp3.1/LabCard.runtimeconfig.dev.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabCard/bin/Debug/netcoreapp3.1/LabCard.dll
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabCard/bin/Debug/netcoreapp3.1/LabCard.pdb
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabCard/obj/Debug/netcoreapp3.1/LabCard.csprojAssemblyReference.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabCard/obj/Debug/netcoreapp3.1/LabCard.AssemblyInfoInputs.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabCard/obj/Debug/netcoreapp3.1/LabCard.AssemblyInfo.cs
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabCard/obj/Debug/netcoreapp3.1/LabCard.csproj.CoreCompileInputs.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabCard/obj/Debug/netcoreapp3.1/LabCard.dll
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabCard/obj/Debug/netcoreapp3.1/LabCard.pdb
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabCard/obj/Debug/netcoreapp3.1/LabCard.genruntimeconfig.cache

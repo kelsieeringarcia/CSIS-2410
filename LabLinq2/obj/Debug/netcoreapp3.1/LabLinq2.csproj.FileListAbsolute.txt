@@ -1,0 +1,12 @@
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabLinq2/bin/Debug/netcoreapp3.1/LabLinq2.deps.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabLinq2/bin/Debug/netcoreapp3.1/LabLinq2.runtimeconfig.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabLinq2/bin/Debug/netcoreapp3.1/LabLinq2.runtimeconfig.dev.json
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabLinq2/bin/Debug/netcoreapp3.1/LabLinq2.dll
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabLinq2/bin/Debug/netcoreapp3.1/LabLinq2.pdb
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabLinq2/obj/Debug/netcoreapp3.1/LabLinq2.csprojAssemblyReference.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabLinq2/obj/Debug/netcoreapp3.1/LabLinq2.AssemblyInfoInputs.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabLinq2/obj/Debug/netcoreapp3.1/LabLinq2.AssemblyInfo.cs
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabLinq2/obj/Debug/netcoreapp3.1/LabLinq2.csproj.CoreCompileInputs.cache
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabLinq2/obj/Debug/netcoreapp3.1/LabLinq2.dll
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabLinq2/obj/Debug/netcoreapp3.1/LabLinq2.pdb
+/Users/kelsiegarcia/Documents/CSIS 2410/LABS_2410/LabLinq2/obj/Debug/netcoreapp3.1/LabLinq2.genruntimeconfig.cache

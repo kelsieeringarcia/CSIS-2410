@@ -77,7 +77,7 @@ public class GUI extends JFrame {
            createPanelTop();
            createJTable();
            JScrollPane pane = new JScrollPane(table);
-           pane.setBorder(new EmptyBorder(10,10,10,0));
+           pane.setBorder(new EmptyBorder(0,10,10,0));
            // Makes sure only one row can be selected at a time
            table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
            this.add(pane, BorderLayout.CENTER);
